@@ -4,122 +4,421 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>나의 공부 필기노트</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>나만의 공부 노트</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&family=Nanum+Pen+Script&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR:wght@400;500;700;900&display=swap');
 
-*{box-sizing:border-box}
-body{
- margin:0;background:#e9e6dc;color:#303d50;
- font-family:'Nanum Gothic',sans-serif;
+:root {
+  --paper: #fffdf5;
+  --ink: #303b50;
+  --blue: #54769b;
+  --red: #d66c6c;
+  --line: #dce7f1;
+  --green: #638d76;
+  --yellow: #fff1bd;
+  --purple: #8975ad;
 }
-header{
- background:#fffdf5;padding:18px 6%;
- display:flex;justify-content:space-between;align-items:center;
- border-bottom:1px solid #ddd;
-}
-.logo{font:40px 'Nanum Pen Script';color:#355b91}
-.header-small{font-size:12px;color:#999}
-.layout{
- max-width:1350px;margin:30px auto;padding:0 20px;
- display:grid;grid-template-columns:245px 1fr;gap:24px;
-}
-.sidebar{
- background:#fffdf5;padding:20px 15px;height:fit-content;
- position:sticky;top:15px;border-radius:5px;
- box-shadow:2px 3px 10px #0000000b;
-}
-.sidebar h3{font:28px 'Nanum Pen Script';color:#315d98}
-.subject{
- padding:12px;background:#eaf0f8;color:#315d98;
- font-weight:bold;margin:15px 0 8px;border-radius:5px;
-}
-.nav-btn{
- display:block;width:100%;text-align:left;
- padding:11px 10px;margin:4px 0;border:0;
- background:transparent;color:#637083;cursor:pointer;
- border-radius:5px;font-size:13px;
-}
-.nav-btn:hover,.nav-btn.active{
- background:#eaf0f8;color:#315d98;font-weight:bold;
-}
-.notebook{
- background-color:#fffdf5;
- background-image:linear-gradient(#dce5ed 1px,transparent 1px);
- background-size:100% 34px;
- padding:40px 55px 70px 75px;min-height:900px;
- position:relative;box-shadow:3px 5px 18px #00000012;
-}
-.notebook:before{
- content:"";position:absolute;left:48px;top:0;bottom:0;
- width:1px;background:#e8aaaa;
-}
-.chapter{display:none;line-height:2.05}
-.chapter.active{display:block}
-.chapter-title{
- font:44px 'Nanum Pen Script';color:#315d98;
- border-bottom:2px solid #7395bd;padding-bottom:10px;
- margin-bottom:20px;
-}
-.subtitle{font-size:13px;color:#999;margin-bottom:25px}
-h2{font-size:21px;color:#315d98;margin-top:35px;margin-bottom:8px}
-h3{font-size:16px;color:#b36c59;margin-top:20px}
-p{margin:7px 0}
-ul,ol{padding-left:25px}
-.highlight{
- background:linear-gradient(transparent 55%,#f9e9a8 55%);
- font-weight:bold;
-}
-.note{
- border-left:4px solid #7299c6;background:#edf3fa;
- padding:12px 17px;margin:18px 0;border-radius:3px;
-}
-.warning{
- border-left:4px solid #d68c83;background:#fff0eb;
- padding:12px 17px;margin:18px 0;
-}
-.formula{
- text-align:center;background:#f5f2e8;padding:12px;
- margin:15px 0;font-size:18px;font-weight:bold;
- color:#355b91;border-radius:4px;
-}
-.example{
- border:1px dashed #a8b8cb;padding:15px;
- margin:18px 0;background:#ffffffa8;
-}
-.example-title{color:#c17a55;font-weight:bold}
-.diagram{
- background:#fff;border:1px solid #e7e3d9;
- padding:15px;margin:18px 0;text-align:center;
- border-radius:5px;
-}
-.diagram svg{max-width:100%;height:auto}
-.diagram text{font-family:'Nanum Gothic',sans-serif}
-.diagram-caption{font-size:12px;color:#999;margin-top:5px}
-.exercise{
- background:#fffefa;border:1px solid #e5dfd2;
- padding:16px;margin:16px 0;border-radius:5px;
-}
-.exercise-title{font-weight:bold;color:#315d98}
-details{
- margin-top:10px;border-top:1px dashed #ddd;padding-top:8px;
-}
-summary{cursor:pointer;color:#b36c59;font-size:13px;font-weight:bold}
-.answer{font-size:14px;color:#45664e;padding:8px 0}
-.tag{
- display:inline-block;padding:3px 8px;background:#edf3fa;
- color:#315d98;border-radius:4px;font-size:11px;
-}
-footer{text-align:center;color:#aaa;padding:30px;font-size:12px}
 
-@media(max-width:750px){
- .layout{grid-template-columns:1fr;margin-top:15px}
- .sidebar{position:static}
- .notebook{padding:30px 22px 50px 45px}
- .notebook:before{left:28px}
- .chapter-title{font-size:35px}
- header{padding:15px}
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  color: var(--ink);
+  font-family: 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+  background: #e9edf1;
+  line-height: 1.8;
+}
+
+button, input, select {
+  font: inherit;
+}
+
+button { cursor: pointer; }
+
+header {
+  background: #fffdf7;
+  border-bottom: 2px solid #e4dfd2;
+  padding: 18px 24px;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  box-shadow: 0 2px 8px #0000000b;
+}
+
+.header-inner {
+  max-width: 1250px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.logo {
+  font-family: 'Gowun Dodum', sans-serif;
+  font-size: 23px;
+  font-weight: 900;
+  color: #3e5b7d;
+}
+
+.logo small {
+  display: block;
+  font-size: 11px;
+  color: #8b929b;
+  font-weight: 400;
+  letter-spacing: 2px;
+}
+
+.top-nav {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+}
+
+.top-nav button {
+  border: 1px solid #d7dce3;
+  background: white;
+  color: #536174;
+  border-radius: 20px;
+  padding: 8px 15px;
+  font-size: 13px;
+}
+
+.top-nav button.active {
+  color: white;
+  background: var(--blue);
+  border-color: var(--blue);
+}
+
+.layout {
+  max-width: 1250px;
+  margin: 24px auto;
+  padding: 0 16px;
+  display: grid;
+  grid-template-columns: 225px minmax(0, 1fr);
+  gap: 20px;
+  align-items: start;
+}
+
+.sidebar {
+  background: #fffdf7;
+  border: 1px solid #e5dfd0;
+  border-radius: 12px;
+  padding: 18px 13px;
+  position: sticky;
+  top: 100px;
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
+}
+
+.sidebar h3 {
+  font-size: 13px;
+  color: #a0a0a0;
+  margin: 15px 8px 6px;
+  letter-spacing: 1px;
+}
+
+.side-btn {
+  display: block;
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: #596477;
+  text-align: left;
+  border-radius: 7px;
+  padding: 9px 10px;
+  margin: 3px 0;
+  font-size: 13px;
+}
+
+.side-btn:hover { background: #f0f4f8; }
+
+.side-btn.active {
+  background: #e7eff8;
+  color: #345c86;
+  font-weight: 700;
+  border-left: 3px solid var(--blue);
+}
+
+main {
+  min-width: 0;
+  background: var(--paper);
+  border: 1px solid #e6dfd2;
+  border-radius: 12px;
+  padding: 35px 42px 55px;
+  box-shadow: 0 4px 18px #00000008;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 34px,
+    #e7edf2 35px
+  );
+  position: relative;
+}
+
+main::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 25px;
+  width: 1px;
+  background: #e9aaaa;
+  opacity: .75;
+}
+
+.page { display: none; }
+.page.active { display: block; }
+
+.page-title {
+  font-family: 'Gowun Dodum', sans-serif;
+  font-size: 30px;
+  font-weight: 900;
+  color: #385a7d;
+  margin: 0 0 7px;
+  line-height: 1.4;
+}
+
+.subtitle {
+  color: #8b929a;
+  font-size: 13px;
+  margin-bottom: 25px;
+}
+
+h2 {
+  font-family: 'Gowun Dodum', sans-serif;
+  font-size: 21px;
+  color: #476b91;
+  margin-top: 34px;
+  margin-bottom: 10px;
+}
+
+h3 {
+  font-size: 16px;
+  color: #526b87;
+  margin-top: 20px;
+}
+
+p { margin: 9px 0; }
+
+.note {
+  background: #fff7d9;
+  border-left: 4px solid #e7c76b;
+  padding: 13px 17px;
+  border-radius: 5px;
+  margin: 15px 0;
+}
+
+.definition {
+  background: #edf4fb;
+  border-left: 4px solid #7295b8;
+  padding: 13px 17px;
+  border-radius: 5px;
+  margin: 15px 0;
+}
+
+.warning {
+  background: #fff0ed;
+  border-left: 4px solid #d98778;
+  padding: 13px 17px;
+  border-radius: 5px;
+  margin: 15px 0;
+}
+
+.formula {
+  background: #f2f0fa;
+  border: 1px dashed #b7acd3;
+  padding: 15px;
+  margin: 13px 0;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 19px;
+  font-weight: 700;
+  color: #63558d;
+}
+
+.example {
+  background: #f0f7ef;
+  border-left: 4px solid #85ad84;
+  padding: 13px 17px;
+  margin: 13px 0;
+  border-radius: 5px;
+}
+
+.tag {
+  display: inline-block;
+  padding: 2px 9px;
+  background: #e8eef6;
+  color: #527398;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  margin-right: 5px;
+}
+
+.illustration {
+  background: #fff;
+  border: 1px solid #e4e7eb;
+  border-radius: 10px;
+  padding: 12px;
+  margin: 17px 0;
+  text-align: center;
+  overflow-x: auto;
+}
+
+.illustration svg {
+  max-width: 100%;
+  height: auto;
+}
+
+.caption {
+  color: #9299a2;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 16px 0;
+  font-size: 13px;
+  background: #fff;
+}
+
+th, td {
+  border: 1px solid #dce2e8;
+  padding: 10px 8px;
+  text-align: center;
+}
+
+th {
+  background: #eaf0f6;
+  color: #466482;
+  font-weight: 700;
+}
+
+tr:nth-child(even) td { background: #fafbfd; }
+
+.scroll-table { overflow-x: auto; }
+
+.practice {
+  background: #fff;
+  border: 1px solid #dfe4e9;
+  border-radius: 9px;
+  padding: 16px;
+  margin: 15px 0;
+}
+
+.practice button, .action-btn {
+  background: #55799f;
+  border: 0;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  margin-top: 8px;
+}
+
+.answer {
+  display: none;
+  margin-top: 10px;
+  padding: 10px;
+  background: #eef6ed;
+  border-radius: 6px;
+  color: #496d4d;
+  font-size: 13px;
+}
+
+.answer.show { display: block; }
+
+.lab-intro {
+  background: #eeeaf8;
+  border-left: 5px solid var(--purple);
+  padding: 17px;
+  border-radius: 7px;
+  margin: 18px 0;
+}
+
+.lab-section {
+  background: #fff;
+  border: 1px solid #ded9eb;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 20px 0;
+}
+
+.lab-section h2 { margin-top: 0; color: #74649a; }
+
+.proof-step {
+  border-left: 3px solid #a99acb;
+  padding: 9px 14px;
+  margin: 10px 0;
+  background: #faf9fd;
+}
+
+.lab-control {
+  background: #f7f5fc;
+  padding: 15px;
+  border-radius: 8px;
+  margin: 12px 0;
+}
+
+.lab-control input[type="range"] { width: 100%; }
+
+.big-number {
+  font-size: 25px;
+  color: #6c5b9b;
+  font-weight: 900;
+}
+
+.result {
+  background: #edf5ed;
+  border-radius: 7px;
+  padding: 12px;
+  margin-top: 10px;
+}
+
+.small { font-size: 12px; color: #8b929a; }
+
+.flex-row {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.flex-row > * { flex: 1 1 220px; }
+
+.hidden { display: none !important; }
+
+footer {
+  text-align: center;
+  color: #999;
+  font-size: 11px;
+  padding: 30px 10px;
+}
+
+@media(max-width: 800px) {
+  .layout { grid-template-columns: 1fr; }
+  .sidebar {
+    position: static;
+    max-height: none;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .sidebar h3 { grid-column: 1 / -1; }
+  main { padding: 28px 22px 40px; }
+  main::before { left: 10px; }
+  .page-title { font-size: 25px; }
+}
+
+@media(max-width: 480px) {
+  header { padding: 12px; }
+  .sidebar { grid-template-columns: 1fr; }
+  main { padding: 25px 17px 35px; }
+  th, td { padding: 7px 5px; }
 }
 </style>
 </head>
@@ -127,1148 +426,1603 @@ footer{text-align:center;color:#aaa;padding:30px;font-size:12px}
 <body>
 
 <header>
- <div class="logo">나의 공부 필기노트 ✎</div>
- <div class="header-small">MY STUDY NOTE</div>
+  <div class="header-inner">
+    <div class="logo">
+      나만의 공부 노트
+      <small>MY INTERACTIVE STUDY NOTE</small>
+    </div>
+    <nav class="top-nav">
+      <button class="active" data-subject="math" onclick="selectSubject('math')">수학</button>
+      <button data-subject="english" onclick="selectSubject('english')">영어</button>
+      <button data-subject="science" onclick="selectSubject('science')">과학</button>
+      <button data-subject="lab" onclick="selectSubject('lab')">실험실</button>
+    </nav>
+  </div>
 </header>
 
 <div class="layout">
-
-<aside class="sidebar">
- <h3>📚 공부 목차</h3>
-
- <div class="subject">📐 수학</div>
- <button class="nav-btn active" onclick="showChapter('math1',this)">01. 기본도형</button>
- <button class="nav-btn" onclick="showChapter('math2',this)">02. 각의 관계</button>
- <button class="nav-btn" onclick="showChapter('math3',this)">03. 평면도형</button>
- <button class="nav-btn" onclick="showChapter('math4',this)">04. 입체도형</button>
-
- <div class="subject">🔤 영어</div>
- <button class="nav-btn" onclick="showChapter('eng1',this)">01. There + be동사</button>
- <button class="nav-btn" onclick="showChapter('eng2',this)">02. to부정사 부사적 용법</button>
- <button class="nav-btn" onclick="showChapter('eng3',this)">03. to부정사 명사적 용법</button>
- <button class="nav-btn" onclick="showChapter('eng4',this)">04. 접속사 that</button>
-</aside>
-
-<main class="notebook">
-
-<!-- ================= 수학 1 ================= -->
-
-<section id="math1" class="chapter active">
-<div class="chapter-title">01. 기본도형</div>
-<div class="subtitle">점, 선, 면 그리고 기본적인 도형의 위치 관계</div>
-
-<h2>1. 점 (Point)</h2>
-<p>점은 위치를 나타내는 가장 기본적인 도형이다.</p>
-<p>점은 크기나 넓이가 없으며 위치만 나타낸다.</p>
-
-<div class="diagram">
-<svg width="250" height="75" viewBox="0 0 250 75">
-<circle cx="115" cy="28" r="4" fill="#315d98"/>
-<text x="128" y="33" font-size="15" fill="#315d98">A</text>
-</svg>
-<div class="diagram-caption">점 A</div>
-</div>
-
-<h2>2. 선</h2>
-<p>선은 점들이 이어진 것으로 생각할 수 있다.</p>
-
-<h3>① 직선</h3>
-<p>양쪽으로 끝없이 뻗어 나가는 선이다.</p>
-<h3>② 선분</h3>
-<p>두 끝점 사이의 부분으로 길이가 정해져 있다.</p>
-<h3>③ 반직선</h3>
-<p>한 점에서 시작하여 한쪽 방향으로 끝없이 뻗어 나간다.</p>
-
-<div class="diagram">
-<svg width="100%" viewBox="0 0 400 180">
-<g stroke="#315d98" stroke-width="2" fill="none">
-<path d="M45 30 L355 30 M45 30 l12 -6 M45 30 l12 6 M355 30 l-12 -6 M355 30 l-12 6"/>
-<path d="M100 85 L300 85 M100 77 V93 M300 77 V93"/>
-<path d="M100 140 L355 140 M355 140 l-12 -6 M355 140 l-12 6 M100 132 V148"/>
-</g>
-<g fill="#315d98" font-size="13">
-<text x="200" y="17" text-anchor="middle">직선</text>
-<text x="200" y="73" text-anchor="middle">선분</text>
-<text x="200" y="128" text-anchor="middle">반직선</text>
-<text x="100" y="105" text-anchor="middle">A</text>
-<text x="300" y="105" text-anchor="middle">B</text>
-<text x="100" y="165" text-anchor="middle">A</text>
-</g>
-</svg>
-</div>
-
-<h2>3. 면</h2>
-<p>면은 넓이를 가지는 부분이다.</p>
-<p>평면은 모든 방향으로 끝없이 펼쳐진 평평한 면이다.</p>
-
-<div class="diagram">
-<svg width="250" height="125" viewBox="0 0 250 125">
-<polygon points="45,80 115,25 210,45 140,100" fill="#dceafa" stroke="#4775a8" stroke-width="2"/>
-<text x="125" y="116" font-size="12" text-anchor="middle" fill="#315d98">평면</text>
-</svg>
-</div>
-
-<h2>4. 두 직선의 위치 관계</h2>
-<h3>① 평행</h3>
-<p>같은 평면 위에서 아무리 연장해도 만나지 않는 두 직선이다.</p>
-<h3>② 수직</h3>
-<p>두 직선이 만나 이루는 각이 90°인 관계이다.</p>
-<h3>③ 한 점에서 만나는 관계</h3>
-<p>두 직선이 한 점에서 만나는 관계이다.</p>
-
-<div class="diagram">
-<svg width="100%" viewBox="0 0 400 125">
-<g stroke="#315d98" stroke-width="2">
-<path d="M30 25 H150 M30 65 H150"/>
-<path d="M220 65 H350 M285 10 V110"/>
-<path d="M220 25 L350 105 M220 105 L350 25"/>
-</g>
-<g fill="#315d98" font-size="13">
-<text x="90" y="105" text-anchor="middle">평행</text>
-<text x="285" y="120" text-anchor="middle">수직</text>
-</g>
-</svg>
-</div>
-
-<div class="note">
-<strong>핵심 정리</strong><br>
-점 = 위치<br>
-선 = 길이<br>
-면 = 넓이<br>
-수직 = 90°<br>
-평행 = 만나지 않음
-</div>
-
-<h2>✏️ 연습문제</h2>
-
-<div class="exercise">
-<div class="exercise-title">문제 1. 다음 중 양쪽으로 끝없이 뻗는 것은?</div>
-① 선분　② 직선　③ 반직선　④ 점
-<details><summary>정답 확인</summary><div class="answer">정답: ② 직선<br>직선은 양쪽으로 끝없이 뻗는다.</div></details>
-</div>
-
-<div class="exercise">
-<div class="exercise-title">문제 2. 두 직선이 90°로 만나는 관계는?</div>
-① 평행　② 수직　③ 일치　④ 교차하지 않음
-<details><summary>정답 확인</summary><div class="answer">정답: ② 수직</div></details>
-</div>
-
-<div class="exercise">
-<div class="exercise-title">문제 3. 한 점에서 시작해 한쪽으로만 뻗는 것은?</div>
-① 직선　② 선분　③ 반직선　④ 평면
-<details><summary>정답 확인</summary><div class="answer">정답: ③ 반직선</div></details>
-</div>
-
-<div class="exercise">
-<div class="exercise-title">문제 4. 평행한 두 직선의 특징을 설명하시오.</div>
-<details><summary>정답 확인</summary><div class="answer">같은 평면 위에서 아무리 연장해도 만나지 않는다.</div></details>
-</div>
-
-<div class="exercise">
-<div class="exercise-title">문제 5. 직선, 선분, 반직선의 차이를 설명하시오.</div>
-<details><summary>정답 확인</summary><div class="answer">직선은 양쪽으로 무한히 뻗고, 선분은 두 끝점이 있으며, 반직선은 한쪽 끝점에서 한 방향으로 무한히 뻗는다.</div></details>
-</div>
-</section>
-
-
-<!-- ================= 수학 2 ================= -->
-
-<section id="math2" class="chapter">
-<div class="chapter-title">02. 각의 관계</div>
-<div class="subtitle">교각, 맞꼭지각, 동위각, 엇각을 이해하자.</div>
-
-<h2>1. 각의 종류</h2>
-<ul>
-<li>예각: 0°보다 크고 90°보다 작은 각</li>
-<li>직각: 90°인 각</li>
-<li>둔각: 90°보다 크고 180°보다 작은 각</li>
-<li>평각: 180°인 각</li>
-<li>주각: 360°인 각</li>
-</ul>
-
-<div class="diagram">
-<svg width="100%" viewBox="0 0 400 120">
-<g stroke="#315d98" stroke-width="2.5" fill="none">
-<path d="M35 80 H85 M35 80 L70 40"/>
-<path d="M115 80 H165 M115 80 V30"/>
-<path d="M195 80 H245 M195 80 L175 35"/>
-<path d="M275 80 H325 M275 80 L225 80"/>
-</g>
-<g fill="#315d98" font-size="12" text-anchor="middle">
-<text x="60" y="110">예각</text><text x="140" y="110">직각</text>
-<text x="220" y="110">둔각</text><text x="300" y="110">평각</text>
-</g>
-</svg>
-</div>
-
-<h2>2. 교각</h2>
-<p>두 직선이 한 점에서 만날 때 만들어지는 네 개의 각을 교각이라고 한다.</p>
-
-<h2>3. 맞꼭지각</h2>
-<p>두 직선이 만날 때 서로 마주 보는 두 각이다.</p>
-<div class="formula">맞꼭지각의 크기는 서로 같다.</div>
-
-<div class="diagram">
-<svg width="270" height="180" viewBox="0 0 270 180">
-<path d="M30 145 L240 35 M30 35 L240 145" stroke="#315d98" stroke-width="2.5"/>
-<g fill="#315d98" font-size="15">
-<text x="130" y="68">①</text><text x="151" y="98">②</text>
-<text x="130" y="126">③</text><text x="105" y="98">④</text>
-</g>
-</svg>
-<p>①과 ③은 맞꼭지각 / ②와 ④도 맞꼭지각</p>
-</div>
-
-<h2>4. 보각과 여각</h2>
-<h3>보각</h3>
-<p>두 각의 크기의 합이 180°인 관계이다.</p>
-<div class="formula">보각의 합 = 180°</div>
-<h3>여각</h3>
-<p>두 각의 크기의 합이 90°인 관계이다.</p>
-<div class="formula">여각의 합 = 90°</div>
-
-<div class="example">
-<div class="example-title">예시</div>
-어떤 각이 120°라면 보각은?<br>
-180° - 120° = <strong>60°</strong><br><br>
-어떤 각이 35°라면 여각은?<br>
-90° - 35° = <strong>55°</strong>
-</div>
-
-<h2>5. 평행선과 각</h2>
-<p>두 평행선을 다른 직선이 가로지르면 특별한 각의 관계가 나타난다.</p>
-
-<div class="diagram">
-<svg width="100%" viewBox="0 0 380 220">
-<g stroke="#315d98" stroke-width="2">
-<path d="M25 65 H350 M25 165 H350"/>
-<path d="M95 15 L260 210"/>
-</g>
-<g fill="#c16e52" font-size="13">
-<text x="120" y="55">①</text><text x="150" y="85">②</text>
-<text x="200" y="155">③</text><text x="230" y="180">④</text>
-</g>
-</svg>
-</div>
-
-<h3>① 동위각</h3>
-<p>두 교점에서 같은 위치에 있는 각이다.</p>
-<div class="formula">평행선에서 동위각은 같다.</div>
-
-<h3>② 엇각</h3>
-<p>두 직선의 안쪽에서 가로지르는 직선의 반대편에 있는 각이다.</p>
-<div class="formula">평행선에서 엇각은 같다.</div>
-
-<h3>③ 동측 내각</h3>
-<p>두 직선의 안쪽에서 가로지르는 직선의 같은 쪽에 있는 각이다.</p>
-<div class="formula">동측 내각의 합 = 180°</div>
-
-<div class="warning">
-두 직선이 평행할 때 위 성질들이 성립한다.
-</div>
-
-<h2>✏️ 연습문제</h2>
-
-<div class="exercise">
-<div class="exercise-title">문제 1. 맞꼭지각 중 하나가 70°라면 나머지 맞꼭지각은?</div>
-① 20°　② 70°　③ 90°　④ 110°
-<details><summary>정답 확인</summary><div class="answer">정답: ② 70°</div></details>
-</div>
-
-<div class="exercise">
-<div class="exercise-title">문제 2. 125°의 보각은?</div>
-<details><summary>정답 확인</summary><div class="answer">180° - 125° = 55°</div></details>
-</div>
-
-<div class="exercise">
-<div class="exercise-title">문제 3. 38°의 여각은?</div>
-<details><summary>정답 확인</summary><div class="answer">90° - 38° = 52°</div></details>
-</div>
-
-<div class="exercise">
-<div class="exercise-title">문제 4. 평행선에서 동위각의 크기는 어떤 관계인가?</div>
-<details><summary>정답 확인</summary><div class="answer">서로 같다.</div></details>
-</div>
-
-<div class="exercise">
-<div class="exercise-title">문제 5. 평행선에서 동측 내각 두 개의 합은?</div>
-<details><summary>정답 확인</summary><div class="answer">180°</div></details>
-</div>
-
-<div class="exercise">
-<div class="exercise-title">문제 6. 두 직선이 만나 한 각이 110°이다. 이 각에 이웃하는 각의 크기는?</div>
-<details><summary>정답 확인</summary><div class="answer">180° - 110° = 70°</div></details>
-</div>
-
-<div class="exercise">
-<div class="exercise-title">문제 7. 한 직선 위에서 이웃한 두 각 중 하나가 45°라면 다른 하나는?</div>
-<details><summary>정답 확인</summary><div class="answer">180° - 45° = 135°</div></details>
-</div>
-</section>
-
-
-<!-- ================= 수학 3 ================= -->
-
-<section id="math3" class="chapter">
-<div class="chapter-title">03. 평면도형의 성질</div>
-<div class="subtitle">삼각형, 사각형, 다각형, 원의 특징을 정리하자.</div>
-
-<h2>1. 삼각형</h2>
-<p>세 개의 선분으로 둘러싸인 도형이다.</p>
-
-<div class="diagram">
-<svg width="260" height="150" viewBox="0 0 260 150">
-<path d="M40 125 L130 20 L225 125 Z" fill="#e7f0fb" stroke="#315d98" stroke-width="2.5"/>
-<g fill="#315d98" font-size="13">
-<text x="25" y="135">A</text><text x="130" y="15">B</text><text x="230" y="135">C</text>
-</g>
-</svg>
-</div>
-
-<h3>① 삼각형의 내각의 합</h3>
-<div class="formula">180°</div>
-<p>삼각형의 세 내각을 모두 더하면 항상 180°이다.</p>
-
-<h3>② 삼각형의 외각</h3>
-<p>외각은 그와 이웃하지 않는 두 내각의 합과 같다.</p>
-<div class="formula">외각 = 다른 두 내각의 합</div>
-
-<h3>③ 삼각형의 종류</h3>
-<ul>
-<li>정삼각형: 세 변의 길이가 같다.</li>
-<li>이등변삼각형: 두 변의 길이가 같다.</li>
-<li>직각삼각형: 한 각이 90°이다.</li>
-<li>예각삼각형: 세 각이 모두 예각이다.</li>
-<li>둔각삼각형: 한 각이 둔각이다.</li>
-</ul>
-
-<div class="note">이등변삼각형의 두 밑각의 크기는 같다.</div>
-
-<h2>2. 사각형</h2>
-<p>네 개의 선분으로 둘러싸인 도형이다.</p>
-<div class="formula">사각형의 내각의 합 = 360°</div>
-
-<h3>① 평행사변형</h3>
-<div class="diagram">
-<svg width="230" height="120" viewBox="0 0 230 120">
-<polygon points="55,90 90,25 205,25 170,90" fill="#e7f0fb" stroke="#315d98" stroke-width="2.5"/>
-</svg>
-</div>
-<ul>
-<li>두 쌍의 대변이 각각 평행하다.</li>
-<li>두 쌍의 대변의 길이가 각각 같다.</li>
-<li>마주 보는 두 각의 크기가 같다.</li>
-<li>두 대각선은 서로를 이등분한다.</li>
-</ul>
-
-<h3>② 직사각형</h3>
-<div class="diagram">
-<svg width="230" height="120" viewBox="0 0 230 120">
-<rect x="45" y="20" width="145" height="80" fill="#e7f0fb" stroke="#315d98" stroke-width="2.5"/>
-</svg>
-</div>
-<ul>
-<li>네 각이 모두 직각이다.</li>
-<li>마주 보는 변의 길이가 같다.</li>
-<li>두 대각선의 길이가 같다.</li>
-</ul>
-
-<h3>③ 마름모</h3>
-<div class="diagram">
-<svg width="230" height="130" viewBox="0 0 230 130">
-<polygon points="115,15 195,65 115,115 35,65" fill="#e7f0fb" stroke="#315d98" stroke-width="2.5"/>
-</svg>
-</div>
-<ul>
-<li>네 변의 길이가 모두 같다.</li>
-<li>마주 보는 두 각의 크기가 같다.</li>
-<li>두 대각선은 서로 수직으로 이등분한다.</li>
-</ul>
-
-<h3>④ 정사각형</h3>
-<div class="diagram">
-<svg width="180" height="130" viewBox="0 0 180 130">
-<rect x="45" y="15" width="90" height="90" fill="#e7f0fb" stroke="#315d98" stroke-width="2.5"/>
-</svg>
-</div>
-<ul>
-<li>네 변의 길이가 모두 같다.</li>
-<li>네 각이 모두 직각이다.</li>
-<li>두 대각선의 길이가 같다.</li>
-<li>두 대각선은 서로 수직으로 이등분한다.</li>
-</ul>
-
-<h2>3. 다각형</h2>
-<p>세 개 이상의 선분으로 둘러싸인 평면도형이다.</p>
-<div class="formula">n각형의 내각의 합 = (n - 2) × 180°</div>
-<p>예를 들어 육각형의 내각의 합은?</p>
-<div class="formula">(6 - 2) × 180° = 720°</div>
-
-<h3>정다각형</h3>
-<p>모든 변의 길이가 같고 모든 내각의 크기가 같은 다각형이다.</p>
-
-<div class="note">
-정n각형의 한 내각의 크기<br>
-= (n - 2) × 180° ÷ n
-</div>
-
-<h2>4. 원</h2>
-<p>한 점에서 일정한 거리에 있는 점들의 집합이다.</p>
-
-<div class="diagram">
-<svg width="250" height="190" viewBox="0 0 250 190">
-<circle cx="125" cy="90" r="65" fill="#e7f0fb" stroke="#315d98" stroke-width="2.5"/>
-<path d="M125 90 L190 90" stroke="#d77b79" stroke-width="3"/>
-<path d="M60 90 H190" stroke="#315d98" stroke-width="2"/>
-<circle cx="125" cy="90" r="3" fill="#315d98"/>
-<g fill="#315d98" font-size="13">
-<text x="130" y="84">중심</text><text x="150" y="80">반지름</text>
-<text x="125" y="175" text-anchor="middle">원의 구조</text>
-</g>
-</svg>
-</div>
-
-<ul>
-<li>반지름: 원의 중심에서 원 위의 한 점까지의 거리</li>
-<li>지름: 원의 중심을 지나 원 위의 두 점을 연결한 선분</li>
-<li>원주: 원의 둘레</li>
-<li>원주율: 원주를 지름으로 나눈 값</li>
-</ul>
-
-<div class="formula">지름 = 반지름 × 2</div>
-<div class="formula">원의 둘레 = 지름 × π</div>
-<div class="formula">원의 넓이 = 반지름 × 반지름 × π</div>
-
-<h2>✏️ 연습문제</h2>
-
-<div class="exercise">
-<div class="exercise-title">문제 1. 삼각형의 내각 두 개가 50°, 60°이다. 나머지 각은?</div>
-<details><summary>정답 확인</summary><div class="answer">180° - 50° - 60° = 70°</div></details>
-</div>
-
-<div class="exercise">
-<div class="exercise-title">문제 2. 사각형의 세 내각이 80°, 90°, 100°이다. 나머지 각은?</div>
-<details><summary>정답 확인</summary><div class="answer">360° - 80° - 90° - 100° = 90°</div></details>
-</div>
-
-<div class="exercise">
-<div class="exercise-title">문제 3. 오각형의 내각의 합은?</div>
-<details><summary>정답 확인</summary><div class="answer">(5 - 2) × 180° = 540°</div></details>
-</div>
-
-<div class="exercise">
-<div class="exercise-title">문제 4. 육각형의 내각의 합은?</div>
-<details><summary>정답 확인</summary><div class="answer">(6 - 2) × 180° = 720°</div></details>
-</div>
-
-<div class="exercise">
-<div class="exercise-title">문제 5. 정육각형의 한 내각의 크기는?</div>
-<details><summary>정답 확인</summary><div class="answer">720° ÷ 6 = 120°</div></details>
-</div>
-
-<div class="exercise">
-<div class="exercise-title">문제 6. 정사각형의 특징을 세 가지 쓰시오.</div>
-<details><summary>정답 확인</summary><div class="answer">네 변의 길이가 같고, 네 각이 직각이며, 두 대각선의 길이가 같다.</div></details>
-</div>
-
-<div class="exercise">
-<div class="exercise-title">문제 7. 원의 반지름이 5cm라면 지름은?</div>
-<details><summary>정답 확인</summary><div class="answer">5 × 2 = 10cm</div></details>
-</div>
-
-<div class="exercise">
-<div class="exercise-title">문제 8. 반지름이 3cm인 원의 넓이를 π를 이용하여 나타내시오.</div>
-<details><summary>정답 확인</summary><div class="answer">3 × 3 × π = 9π㎠</div></details>
-</div>
-</section>
-
-
-<!-- ================= 수학 4 ================= -->
-
-<section id="math4" class="chapter">
-<div class="chapter-title">04. 입체도형의 성질</div>
-<div class="subtitle">공간에서 부피와 겉넓이를 가지는 도형을 공부하자.</div>
-
-<h2>1. 입체도형이란?</h2>
-<p>길이, 넓이뿐만 아니라 부피를 가지는 3차원 도형이다.</p>
-<p>대표적으로 각기둥, 각뿔, 원기둥, 원뿔, 구가 있다.</p>
-
-<h2>2. 각기둥</h2>
-<p>서로 평행하고 합동인 두 밑면과 옆면으로 이루어진 입체도형이다.</p>
-
-<div class="diagram">
-<svg width="260" height="180" viewBox="0 0 260 180">
-<path d="M65 60 L130 25 L195 60 L195 135 L130 170 L65 135 Z" fill="#e7f0fb" stroke="#315d98" stroke-width="2"/>
-<path d="M65 60 L130 95 L195 60 M130 95 V170" fill="none" stroke="#315d98" stroke-width="2"/>
-<path d="M65 135 L130 170 L195 135" fill="none" stroke="#315d98" stroke-width="2"/>
-<path d="M65 60 L65 135" stroke="#315d98" stroke-width="2"/>
-</svg>
-<p>각기둥의 예시</p>
-</div>
-
-<ul>
-<li>두 밑면은 서로 평행하고 합동이다.</li>
-<li>옆면은 직사각형인 직각기둥이 기본적인 예이다.</li>
-<li>밑면의 모양에 따라 삼각기둥, 사각기둥 등으로 나눈다.</li>
-</ul>
-
-<h3>각기둥의 구성 요소</h3>
-<ul>
-<li>면: 도형을 둘러싸는 면</li>
-<li>모서리: 면과 면이 만나는 선분</li>
-<li>꼭짓점: 모서리와 모서리가 만나는 점</li>
-</ul>
-
-<h2>3. 각뿔</h2>
-<p>다각형인 밑면 하나와 한 꼭짓점에 모이는 삼각형 옆면들로 이루어진 도형이다.</p>
-
-<div class="diagram">
-<svg width="240" height="180" viewBox="0 0 240 180">
-<path d="M120 20 L40 130 L120 160 L200 130 Z" fill="#e7f0fb" stroke="#315d98" stroke-width="2"/>
-<path d="M120 20 L40 130 M120 20 L120 160 M120 20 L200 130" stroke="#315d98" stroke-width="2"/>
-<path d="M40 130 L200 130" stroke="#315d98" stroke-width="2"/>
-</svg>
-</div>
-
-<ul>
-<li>밑면은 다각형이다.</li>
-<li>옆면은 모두 삼각형이다.</li>
-<li>옆면의 삼각형은 하나의 꼭짓점에 모인다.</li>
-</ul>
-
-<h2>4. 원기둥</h2>
-<p>두 개의 평행하고 합동인 원과 옆면으로 이루어진 입체도형이다.</p>
-
-<div class="diagram">
-<svg width="220" height="180" viewBox="0 0 220 180">
-<ellipse cx="110" cy="35" rx="65" ry="22" fill="#dceafa" stroke="#315d98" stroke-width="2"/>
-<path d="M45 35 V135 M175 35 V135" stroke="#315d98" stroke-width="2"/>
-<path d="M45 135 A65 22 0 0 0 175 135" fill="none" stroke="#315d98" stroke-width="2"/>
-<path d="M45 135 A65 22 0 0 1 175 135" fill="none" stroke="#315d98" stroke-width="2" stroke-dasharray="4 3"/>
-</svg>
-</div>
-
-<ul>
-<li>두 밑면은 원이다.</li>
-<li>두 밑면은 서로 평행하고 합동이다.</li>
-<li>옆면을 펼치면 직사각형이 된다.</li>
-</ul>
-
-<h2>5. 원뿔</h2>
-<p>원 모양의 밑면 하나와 한 꼭짓점으로 모이는 곡면으로 이루어진 도형이다.</p>
-
-<div class="diagram">
-<svg width="220" height="175" viewBox="0 0 220 175">
-<path d="M110 20 L45 140 M110 20 L175 140" stroke="#315d98" stroke-width="2"/>
-<ellipse cx="110" cy="140" rx="65" ry="22" fill="#e7f0fb" stroke="#315d98" stroke-width="2"/>
-</svg>
-</div>
-
-<h2>6. 구</h2>
-<p>공처럼 둥근 입체도형이다.</p>
-<div class="diagram">
-<svg width="170" height="155" viewBox="0 0 170 155">
-<circle cx="85" cy="75" r="58" fill="#dceafa" stroke="#315d98" stroke-width="2"/>
-<ellipse cx="85" cy="75" rx="58" ry="20" fill="none" stroke="#7898bb" stroke-width="1.5" stroke-dasharray="4 3"/>
-<path d="M85 75 L143 75" stroke="#d77b79" stroke-width="2"/>
-</svg>
-</div>
-<ul>
-<li>평면인 밑면이 없다.</li>
-<li>모든 방향으로 둥근 곡면으로 이루어져 있다.</li>
-</ul>
-
-<h2>7. 입체도형의 부피</h2>
-<h3>직육면체</h3>
-<div class="formula">부피 = 가로 × 세로 × 높이</div>
-<h3>정육면체</h3>
-<div class="formula">부피 = 한 모서리의 길이³</div>
-<h3>원기둥</h3>
-<div class="formula">부피 = 밑넓이 × 높이 = πr²h</div>
-<h3>각기둥</h3>
-<div class="formula">부피 = 밑넓이 × 높이</div>
-<h3>각뿔</h3>
-<div class="formula">부피 = 밑넓이 × 높이 ÷ 3</div>
-<h3>원뿔</h3>
-<div class="formula">부피 = πr²h ÷ 3</div>
-<h3>구</h3>
-<div class="formula">부피 = 4πr³ ÷ 3</div>
-
-<h2>8. 오일러의 다면체 정리</h2>
-<p>볼록다면체에서 꼭짓점의 개수, 모서리의 개수, 면의 개수 사이에는 일정한 관계가 있다.</p>
-<div class="formula">꼭짓점 수 - 모서리 수 + 면의 수 = 2</div>
-
-<h2>✏️ 연습문제</h2>
-
-<div class="exercise">
-<div class="exercise-title">문제 1. 각기둥의 밑면은 몇 개인가?</div>
-① 1개　② 2개　③ 3개　④ 4개
-<details><summary>정답 확인</summary><div class="answer">정답: ② 2개</div></details>
-</div>
-
-<div class="exercise">
-<div class="exercise-title">문제 2. 각뿔의 옆면은 어떤 도형인가?</div>
-<details><summary>정답 확인</summary><div class="answer">삼각형</div></details>
-</div>
-
-<div class="exercise">
-<div class="exercise-title">문제 3. 직육면체의 가로 4cm, 세로 3cm, 높이 5cm일 때 부피는?</div>
-<details><summary>정답 확인</summary><div class="answer">4 × 3 × 5 = 60㎤</div></details>
-</div>
-
-<div class="exercise">
-<div class="exercise-title">문제 4. 한 모서리가 3cm인 정육면체의 부피는?</div>
-<details><summary>정답 확인</summary><div class="answer">3 × 3 × 3 = 27㎤</div></details>
-</div>
-
-<div class="exercise">
-<div class="exercise-title">문제 5. 반지름 2cm, 높이 5cm인 원기둥의 부피를 π로 나타내시오.</div>
-<details><summary>정답 확인</summary><div class="answer">π × 2² × 5 = 20π㎤</div></details>
-</div>
-
-<div class="exercise">
-<div class="exercise-title">문제 6. 각뿔의 부피 공식은?</div>
-<details><summary>정답 확인</summary><div class="answer">밑넓이 × 높이 ÷ 3</div></details>
-</div>
-
-<div class="exercise">
-<div class="exercise-title">문제 7. 볼록다면체의 꼭짓점이 8개, 모서리가 12개라면 면은 몇 개인가?</div>
-<details><summary>정답 확인</summary><div class="answer">8 - 12 + 면의 수 = 2<br>면의 수 = 6개</div></details>
-</div>
-</section>
-
-
-<!-- ================= 영어 1 ================= -->
-
-<section id="eng1" class="chapter">
-<div class="chapter-title">01. There + be동사</div>
-<div class="subtitle">어떤 장소에 무엇이 존재하거나 있다는 것을 표현하는 문법</div>
-
-<h2>1. 기본 개념</h2>
-<p><span class="highlight">There + be동사</span>는 '~가 있다', '~가 존재한다'라는 뜻이다.</p>
-
-<div class="formula">There + be동사 + 주어 + 장소</div>
-
-<div class="example">
-<div class="example-title">예문</div>
-There is a book on the desk.<br>
-책상 위에 책 한 권이 있다.<br><br>
-There are two cats in the room.<br>
-방 안에 고양이 두 마리가 있다.
-</div>
-
-<h2>2. There is / There are</h2>
-<p>뒤에 오는 명사의 수에 따라 be동사가 달라진다.</p>
-
-<div class="note">
-<strong>단수 명사 또는 셀 수 없는 명사</strong><br>
-There is + 명사<br><br>
-<strong>복수 명사</strong><br>
-There are + 복수 명사
-</div>
-
-<h3>예시</h3>
-<ul>
-<li>There is a dog. → 개 한 마리가 있다.</li>
-<li>There is some water. → 물이 조금 있다.</li>
-<li>There are three apples. → 사과 세 개가 있다.</li>
-<li>There are many students. → 학생들이 많이 있다.</li>
-</ul>
-
-<h2>3. 부정문</h2>
-<p>be동사 뒤에 not을 붙이면 '~가 없다'라는 뜻이 된다.</p>
-<div class="formula">There is not = There isn't</div>
-<div class="formula">There are not = There aren't</div>
-
-<div class="example">
-There isn't a computer in my room.<br>
-내 방에는 컴퓨터가 없다.<br><br>
-There aren't any books here.<br>
-여기에는 책이 하나도 없다.
-</div>
-
-<h2>4. 의문문</h2>
-<p>There와 be동사의 위치를 바꾼다.</p>
-<div class="formula">Be동사 + there + 주어 ~?</div>
-
-<div class="example">
-Is there a bank near here?<br>
-이 근처에 은행이 있나요?<br><br>
-Are there any students in the classroom?<br>
-교실에 학생들이 있나요?
-</div>
-
-<h3>대답하기</h3>
-<ul>
-<li>Yes, there is. / No, there isn't.</li>
-<li>Yes, there are. / No, there aren't.</li>
-</ul>
-
-<h2>5. 주의할 점</h2>
-<div class="warning">
-There is와 There are를 결정할 때는 There가 아니라 뒤에 나오는 주어의 수를 확인한다.
-</div>
-
-<h2>✏️ 연습문제</h2>
-
-<div class="exercise">
-<div class="exercise-title">문제 1. 빈칸에 알맞은 말을 고르시오.</div>
-There ( is / are ) a pencil on the desk.
-<details><summary>정답 확인</summary><div class="answer">is - a pencil은 단수이다.</div></details>
-</div>
-
-<div class="exercise">
-<div class="exercise-title">문제 2.</div>
-There ( is / are ) five students in the classroom.
-<details><summary>정답 확인</summary><div class="answer">are - five students는 복수이다.</div></details>
-</div>
-
-<div class="exercise">
-<div class="exercise-title">문제 3. 다음 문장을 부정문으로 바꾸시오.</div>
-There is a dog in the garden.
-<details><summary>정답 확인</summary><div class="answer">There isn't a dog in the garden.</div></details>
-</div>
-
-<div class="exercise">
-<div class="exercise-title">문제 4. 다음 문장을 의문문으로 바꾸시오.</div>
-There are two books on the table.
-<details><summary>정답 확인</summary><div class="answer">Are there two books on the table?</div></details>
-</div>
-
-<div class="exercise">
-<div class="exercise-title">문제 5. 다음 문장을 해석하시오.</div>
-There is some milk in the refrigerator.
-<details><summary>정답 확인</summary><div class="answer">냉장고 안에 우유가 조금 있다.</div></details>
-</div>
-
-<div class="exercise">
-<div class="exercise-title">문제 6. 다음 문장을 영어로 바꾸시오.</div>
-우리 학교에는 도서관이 있다.
-<details><summary>정답 확인</summary><div class="answer">There is a library in our school.</div></details>
-</div>
-
-<div class="exercise">
-<div class="exercise-title">문제 7. 다음 중 올바른 문장은?</div>
-① There are a cat.<br>
-② There is three apples.<br>
-③ There are two dogs.<br>
-④ There is many students.
-<details><summary>정답 확인</summary><div class="answer">정답: ③ There are two dogs.</div></details>
-</div>
-</section>
-
-
-<!-- ================= 영어 2 ================= -->
-
-<section id="eng2" class="chapter">
-<div class="chapter-title">02. to부정사의 부사적 용법</div>
-<div class="subtitle">이번 단원에서는 목적을 나타내는 용법만 공부한다.</div>
-
-<h2>1. 기본 개념</h2>
-<p>to + 동사원형의 형태가 문장에서 부사 역할을 할 수 있다.</p>
-<p>이 단원에서는 <span class="highlight">목적</span>의 의미만 다룬다.</p>
-
-<div class="formula">to + 동사원형 = ~하기 위해서</div>
-
-<div class="example">
-<div class="example-title">예문 1</div>
-I study hard to pass the exam.<br>
-나는 시험에 합격하기 위해 열심히 공부한다.
-</div>
-
-<div class="example">
-<div class="example-title">예문 2</div>
-She went to the store to buy milk.<br>
-그녀는 우유를 사기 위해 가게에 갔다.
-</div>
-
-<h2>2. 문장 구조</h2>
-<div class="formula">주어 + 동사 + 목적을 나타내는 to부정사</div>
-
-<p>to 뒤에는 반드시 동사원형이 온다.</p>
-
-<div class="note">
-I exercise to stay healthy.<br>
-나는 건강을 유지하기 위해 운동한다.<br><br>
-to stay = 유지하기 위해서
-</div>
-
-<h2>3. 자주 사용하는 표현</h2>
-<ul>
-<li>to study: 공부하기 위해</li>
-<li>to learn: 배우기 위해</li>
-<li>to buy: 사기 위해</li>
-<li>to see: 보기 위해</li>
-<li>to help: 돕기 위해</li>
-<li>to make: 만들기 위해</li>
-<li>to get: 얻기 위해</li>
-<li>to meet: 만나기 위해</li>
-</ul>
-
-<h2>4. 주의할 점</h2>
-<div class="warning">
-to 뒤에는 동사원형을 사용한다.<br>
-to studying (X)<br>
-to study (O)
-</div>
-
-<h2>✏️ 연습문제</h2>
-
-<div class="exercise">
-<div class="exercise-title">문제 1. 빈칸에 알맞은 것을 고르시오.</div>
-I went to the library ( to study / studying ).
-<details><summary>정답 확인</summary><div class="answer">to study - 공부하기 위해서</div></details>
-</div>
-
-<div class="exercise">
-<div class="exercise-title">문제 2. 다음 문장을 해석하시오.</div>
-He runs every day to stay healthy.
-<details><summary>정답 확인</summary><div class="answer">그는 건강을 유지하기 위해 매일 달린다.</div></details>
-</div>
-
-<div class="exercise">
-<div class="exercise-title">문제 3. 빈칸에 알맞은 말을 쓰시오.</div>
-I saved money ______ buy a new computer.
-<details><summary>정답 확인</summary><div class="answer">to - 새 컴퓨터를 사기 위해서</div></details>
-</div>
-
-<div class="exercise">
-<div class="exercise-title">문제 4. 다음 문장에서 목적을 나타내는 부분을 찾으시오.</div>
-She called me to ask a question.
-<details><summary>정답 확인</summary><div class="answer">to ask a question - 질문하기 위해서</div></details>
-</div>
-
-<div class="exercise">
-<div class="exercise-title">문제 5. 다음 문장을 영어로 바꾸시오.</div>
-나는 영어를 배우기 위해 공부한다.
-<details><summary>정답 확인</summary><div class="answer">I study to learn English.</div></details>
-</div>
-
-<div class="exercise">
-<div class="exercise-title">문제 6. 다음 중 올바른 문장은?</div>
-① I went to buyed food.<br>
-② I went to buying food.<br>
-③ I went to buy food.<br>
-④ I went buy food.
-<details><summary>정답 확인</summary><div class="answer">정답: ③ I went to buy food.</div></details>
-</div>
-
-<div class="exercise">
-<div class="exercise-title">문제 7. 다음 문장을 해석하시오.</div>
-We use computers to do our work.
-<details><summary>정답 확인</summary><div class="answer">우리는 일을 하기 위해 컴퓨터를 사용한다.</div></details>
-</div>
-</section>
-
-
-<!-- ================= 영어 3 ================= -->
-
-<section id="eng3" class="chapter">
-<div class="chapter-title">03. to부정사의 명사적 용법</div>
-<div class="subtitle">to + 동사원형이 명사처럼 쓰이는 세 가지 위치</div>
-
-<h2>1. 기본 개념</h2>
-<p>to부정사가 문장에서 명사처럼 사용되는 것을 명사적 용법이라고 한다.</p>
-
-<div class="formula">to + 동사원형 = ~하는 것</div>
-
-<p>명사적 용법은 다음 세 가지 역할을 할 수 있다.</p>
-<div class="note">
-① 주어<br>
-② 목적어<br>
-③ 보어
-</div>
-
-<h2>2. 주어 역할</h2>
-<p>문장의 주어 자리에 to부정사가 오는 경우이다.</p>
-<div class="formula">To + 동사원형 + 동사 ~</div>
-
-<div class="example">
-<div class="example-title">예문</div>
-To learn English is important.<br>
-영어를 배우는 것은 중요하다.<br><br>
-To exercise every day is good.<br>
-매일 운동하는 것은 좋다.
-</div>
-
-<h2>3. 목적어 역할</h2>
-<p>동사 뒤에서 목적어 역할을 한다.</p>
-
-<div class="formula">주어 + 동사 + to + 동사원형</div>
-
-<div class="example">
-<div class="example-title">예문</div>
-I want to sleep.<br>
-나는 자고 싶다.<br><br>
-She likes to read books.<br>
-그녀는 책 읽는 것을 좋아한다.<br><br>
-He decided to study.<br>
-그는 공부하기로 결정했다.
-</div>
-
-<h3>자주 쓰이는 동사</h3>
-<ul>
-<li>want: 원하다</li>
-<li>hope: 바라다</li>
-<li>decide: 결정하다</li>
-<li>plan: 계획하다</li>
-<li>need: 필요로 하다</li>
-</ul>
-
-<h2>4. 보어 역할</h2>
-<p>주어의 상태나 내용을 설명하는 주격 보어 역할을 한다.</p>
-
-<div class="formula">주어 + be동사 + to + 동사원형</div>
-
-<div class="example">
-<div class="example-title">예문</div>
-My dream is to become a doctor.<br>
-나의 꿈은 의사가 되는 것이다.<br><br>
-Her hobby is to dance.<br>
-그녀의 취미는 춤추는 것이다.
-</div>
-
-<h2>5. 세 가지 역할 비교</h2>
-
-<div class="note">
-<strong>주어</strong><br>
-To read books is fun.<br>
-책을 읽는 것은 재미있다.<br><br>
-<strong>목적어</strong><br>
-I want to read books.<br>
-나는 책을 읽고 싶다.<br><br>
-<strong>보어</strong><br>
-My hobby is to read books.<br>
-내 취미는 책을 읽는 것이다.
-</div>
-
-<div class="warning">
-명사적 용법의 핵심은 문장 속에서 '~하는 것'이라는 의미로 쓰이며, 주어·목적어·보어 중 어떤 역할을 하는지 구별하는 것이다.
-</div>
-
-<h2>✏️ 연습문제</h2>
-
-<div class="exercise">
-<div class="exercise-title">문제 1. 다음 문장에서 to부정사의 역할은?</div>
-To swim is fun.
-<details><summary>정답 확인</summary><div class="answer">주어 - 수영하는 것은 재미있다.</div></details>
-</div>
-
-<div class="exercise">
-<div class="exercise-title">문제 2. 다음 문장에서 to부정사의 역할은?</div>
-I want to eat pizza.
-<details><summary>정답 확인</summary><div class="answer">목적어 - 나는 피자를 먹고 싶다.</div></details>
-</div>
-
-<div class="exercise">
-<div class="exercise-title">문제 3. 다음 문장에서 to부정사의 역할은?</div>
-My dream is to travel the world.
-<details><summary>정답 확인</summary><div class="answer">보어 - 나의 꿈은 세계를 여행하는 것이다.</div></details>
-</div>
-
-<div class="exercise">
-<div class="exercise-title">문제 4. 빈칸에 알맞은 것을 고르시오.</div>
-I decided ( to study / studying ) English.
-<details><summary>정답 확인</summary><div class="answer">to study</div></details>
-</div>
-
-<div class="exercise">
-<div class="exercise-title">문제 5. 다음 문장을 해석하시오.</div>
-To help others is important.
-<details><summary>정답 확인</summary><div class="answer">다른 사람들을 돕는 것은 중요하다.</div></details>
-</div>
-
-<div class="exercise">
-<div class="exercise-title">문제 6. 다음 문장을 해석하시오.</div>
-Her plan is to visit Japan.
-<details><summary>정답 확인</summary><div class="answer">그녀의 계획은 일본을 방문하는 것이다.</div></details>
-</div>
-
-<div class="exercise">
-<div class="exercise-title">문제 7. 다음 문장에서 to부정사의 역할을 순서대로 쓰시오.</div>
-① To exercise is healthy.<br>
-② I hope to win.<br>
-③ My goal is to succeed.
-<details><summary>정답 확인</summary><div class="answer">① 주어 ② 목적어 ③ 보어</div></details>
-</div>
-
-<div class="exercise">
-<div class="exercise-title">문제 8. 다음 문장을 영어로 바꾸시오.</div>
-나의 꿈은 선생님이 되는 것이다.
-<details><summary>정답 확인</summary><div class="answer">My dream is to become a teacher.</div></details>
-</div>
-</section>
-
-
-<!-- ================= 영어 4 ================= -->
-
-<section id="eng4" class="chapter">
-<div class="chapter-title">04. 접속사 that</div>
-<div class="subtitle">that을 사용하여 두 문장을 연결하는 방법</div>
-
-<h2>1. 기본 개념</h2>
-<p>접속사 that은 뒤에 완전한 문장을 연결하여 '~라는 것', '~라고'라는 의미를 만든다.</p>
-
-<div class="formula">주어 + 동사 + that + 완전한 문장</div>
-
-<div class="example">
-<div class="example-title">예문</div>
-I think that he is kind.<br>
-나는 그가 친절하다고 생각한다.<br><br>
-She knows that I am busy.<br>
-그녀는 내가 바쁘다는 것을 안다.
-</div>
-
-<h2>2. that의 역할</h2>
-<p>that은 앞의 동사와 뒤의 문장을 연결하는 접속사이다.</p>
-
-<div class="diagram">
-<svg width="100%" viewBox="0 0 390 105">
-<rect x="5" y="15" width="110" height="65" rx="7" fill="#e7f0fb" stroke="#7299c6"/>
-<rect x="140" y="15" width="105" height="65" rx="7" fill="#fff0e8" stroke="#d68c83"/>
-<rect x="270" y="15" width="115" height="65" rx="7" fill="#e7f0fb" stroke="#7299c6"/>
-<g font-size="13" text-anchor="middle" fill="#315d98">
-<text x="60" y="42">I think</text><text x="60" y="60">나는 생각한다</text>
-<text x="192" y="42">that</text><text x="192" y="60">접속사</text>
-<text x="327" y="42">he is kind</text><text x="327" y="60">그는 친절하다</text>
-</g>
-</svg>
-</div>
-
-<h2>3. 두 문장을 연결하기</h2>
-<p>예를 들어 다음 두 문장이 있다고 생각해 보자.</p>
-
-<div class="note">
-He is honest.<br>
-그는 정직하다.<br><br>
-I think.<br>
-나는 생각한다.
-</div>
-
-<p>두 문장을 that으로 연결하면 다음과 같다.</p>
-
-<div class="formula">I think that he is honest.</div>
-<p>나는 그가 정직하다고 생각한다.</p>
-
-<h2>4. 자주 쓰이는 동사</h2>
-<ul>
-<li>think: 생각하다</li>
-<li>know: 알다</li>
-<li>believe: 믿다</li>
-<li>hope: 바라다</li>
-<li>say: 말하다</li>
-<li>hear: 듣다</li>
-<li>understand: 이해하다</li>
-</ul>
-
-<h2>5. that 뒤에는 완전한 문장</h2>
-<p>접속사 that 뒤에는 주어와 동사가 갖춰진 문장이 온다.</p>
-
-<div class="example">
-<strong>올바른 예문</strong><br>
-I know that she likes music.<br>
-→ she(주어) + likes(동사) + music(목적어)
-</div>
-
-<div class="warning">
-접속사 that과 관계대명사 that은 서로 다른 문법이다. 여기서는 접속사 that만 공부한다.
-</div>
-
-<h2>6. that 생략</h2>
-<p>목적어 역할을 하는 명사절을 이끄는 접속사 that은 일반적으로 생략할 수 있다.</p>
-
-<div class="example">
-I think that he is smart.<br>
-= I think he is smart.<br><br>
-나는 그가 똑똑하다고 생각한다.
-</div>
-
-<h2>✏️ 연습문제</h2>
-
-<div class="exercise">
-<div class="exercise-title">문제 1. 빈칸에 알맞은 말을 고르시오.</div>
-I think ( that / what ) she is smart.
-<details><summary>정답 확인</summary><div class="answer">that</div></details>
-</div>
-
-<div class="exercise">
-<div class="exercise-title">문제 2. 다음 문장을 해석하시오.</div>
-I know that he is a student.
-<details><summary>정답 확인</summary><div class="answer">나는 그가 학생이라는 것을 안다.</div></details>
-</div>
-
-<div class="exercise">
-<div class="exercise-title">문제 3. 두 문장을 that으로 연결하시오.</div>
-She is happy.<br>
-I believe.
-<details><summary>정답 확인</summary><div class="answer">I believe that she is happy.</div></details>
-</div>
-
-<div class="exercise">
-<div class="exercise-title">문제 4. 다음 문장을 해석하시오.</div>
-He said that he liked soccer.
-<details><summary>정답 확인</summary><div class="answer">그는 자신이 축구를 좋아한다고 말했다.</div></details>
-</div>
-
-<div class="exercise">
-<div class="exercise-title">문제 5. 다음 중 접속사 that의 뒤에 완전한 문장이 오는 것은?</div>
-① I know that she is kind.<br>
-② I know that kind.<br>
-③ I know that happy.<br>
-④ I know that beautiful.
-<details><summary>정답 확인</summary><div class="answer">정답: ① she is kind. 주어와 동사가 모두 있다.</div></details>
-</div>
-
-<div class="exercise">
-<div class="exercise-title">문제 6. 다음 문장에서 that이 생략 가능한지 판단하시오.</div>
-I think that he is right.
-<details><summary>정답 확인</summary><div class="answer">생략 가능: I think he is right.</div></details>
-</div>
-
-<div class="exercise">
-<div class="exercise-title">문제 7. 다음 문장을 영어로 바꾸시오.</div>
-나는 그녀가 친절하다고 생각한다.
-<details><summary>정답 확인</summary><div class="answer">I think that she is kind.</div></details>
-</div>
-
-<div class="exercise">
-<div class="exercise-title">문제 8. 다음 문장을 영어로 바꾸시오.</div>
-나는 그가 영어를 좋아한다는 것을 안다.
-<details><summary>정답 확인</summary><div class="answer">I know that he likes English.</div></details>
-</div>
-</section>
-
-</main>
+  <aside class="sidebar" id="sidebar">
+
+    <h3>수학</h3>
+    <button class="side-btn active" data-page="math1" onclick="showPage('math1')">01. 기본 도형</button>
+    <button class="side-btn" data-page="math2" onclick="showPage('math2')">02. 각의 관계</button>
+    <button class="side-btn" data-page="math3" onclick="showPage('math3')">03. 평면도형</button>
+    <button class="side-btn" data-page="math4" onclick="showPage('math4')">04. 입체도형</button>
+    <button class="side-btn" data-page="math5" onclick="showPage('math5')">05. 정다면체</button>
+
+    <h3>영어</h3>
+    <button class="side-btn" data-page="eng1" onclick="showPage('eng1')">01. There + be동사</button>
+    <button class="side-btn" data-page="eng2" onclick="showPage('eng2')">02. to부정사 - 부사적</button>
+    <button class="side-btn" data-page="eng3" onclick="showPage('eng3')">03. to부정사 - 명사적</button>
+    <button class="side-btn" data-page="eng4" onclick="showPage('eng4')">04. 접속사 that</button>
+    <button class="side-btn" data-page="eng5" onclick="showPage('eng5')">05. 관계대명사 that</button>
+
+    <h3>과학</h3>
+    <button class="side-btn" data-page="sci1" onclick="showPage('sci1')">04. 물질의 상태 변화</button>
+    <button class="side-btn" data-page="sci2" onclick="showPage('sci2')">05. 힘의 작용</button>
+    <button class="side-btn" data-page="sci3" onclick="showPage('sci3')">06. 기체의 성질</button>
+
+    <h3>탐구 공간</h3>
+    <button class="side-btn" data-page="lab" onclick="showPage('lab')">🔬 공식 증명 실험실</button>
+  </aside>
+
+  <main>
+
+    <!-- 수학 1 -->
+    <section class="page active" id="math1">
+      <h1 class="page-title">01. 기본 도형</h1>
+      <div class="subtitle">수학의 가장 기본이 되는 점, 선, 면을 알아보자.</div>
+
+      <h2>1. 점 · 선 · 면</h2>
+      <div class="definition">
+        <b>점</b>은 위치만 나타내며 크기와 모양은 없다.<br>
+        <b>선</b>은 점이 움직인 자취로 생각할 수 있다.<br>
+        <b>면</b>은 선이 움직인 자취로 생각할 수 있다.
+      </div>
+
+      <div class="illustration">
+        <svg viewBox="0 0 650 180" width="650" role="img" aria-label="점, 직선, 평면의 그림">
+          <circle cx="100" cy="75" r="5" fill="#d66c6c"/>
+          <text x="100" y="110" text-anchor="middle" font-size="16" fill="#333">점 A</text>
+          <line x1="230" y1="75" x2="410" y2="75" stroke="#54769b" stroke-width="3"/>
+          <path d="M230 75 l12 -6 v12 z M410 75 l-12 -6 v12 z" fill="#54769b"/>
+          <text x="320" y="110" text-anchor="middle" font-size="16" fill="#333">직선 l</text>
+          <polygon points="490,45 610,45 635,110 515,110" fill="#dceaf7" stroke="#54769b" stroke-width="2"/>
+          <text x="560" y="140" text-anchor="middle" font-size="16" fill="#333">평면</text>
+        </svg>
+        <div class="caption">점은 위치, 직선은 양쪽으로 끝없이 뻗는 선, 평면은 평평한 면을 나타낸다.</div>
+      </div>
+
+      <h2>2. 직선과 선분, 반직선</h2>
+      <table>
+        <tr><th>종류</th><th>특징</th><th>기호 예시</th></tr>
+        <tr><td>직선</td><td>양쪽으로 끝없이 뻗음</td><td>↔ AB</td></tr>
+        <tr><td>선분</td><td>두 끝점 사이의 부분</td><td>선분 AB</td></tr>
+        <tr><td>반직선</td><td>한쪽 끝점에서 한 방향으로 뻗음</td><td>→ AB</td></tr>
+      </table>
+
+      <div class="illustration">
+        <svg viewBox="0 0 650 180" width="650" role="img" aria-label="직선 선분 반직선">
+          <line x1="75" y1="35" x2="270" y2="35" stroke="#54769b" stroke-width="3"/>
+          <path d="M75 35 l12 -6 v12 z M270 35 l-12 -6 v12 z" fill="#54769b"/>
+          <text x="172" y="20" text-anchor="middle" font-size="13">직선</text>
+          <line x1="75" y1="90" x2="270" y2="90" stroke="#638d76" stroke-width="4"/>
+          <circle cx="75" cy="90" r="5" fill="#638d76"/>
+          <circle cx="270" cy="90" r="5" fill="#638d76"/>
+          <text x="172" y="75" text-anchor="middle" font-size="13">선분</text>
+          <line x1="75" y1="145" x2="270" y2="145" stroke="#d66c6c" stroke-width="3"/>
+          <circle cx="75" cy="145" r="5" fill="#d66c6c"/>
+          <path d="M270 145 l-12 -6 v12 z" fill="#d66c6c"/>
+          <text x="172" y="130" text-anchor="middle" font-size="13">반직선</text>
+        </svg>
+      </div>
+
+      <h2>3. 평행선과 수직선</h2>
+      <div class="definition">
+        <b>평행선</b>: 한 평면 위에서 아무리 연장해도 만나지 않는 두 직선이다. 기호는 <b>∥</b>이다.<br>
+        <b>수직</b>: 두 직선이 만나 이루는 각이 90°일 때 서로 수직이라고 한다. 기호는 <b>⊥</b>이다.
+      </div>
+
+      <div class="illustration">
+        <svg viewBox="0 0 650 190" width="650" role="img" aria-label="평행선과 수직선 표시">
+          <line x1="60" y1="45" x2="300" y2="45" stroke="#54769b" stroke-width="3"/>
+          <line x1="60" y1="100" x2="300" y2="100" stroke="#54769b" stroke-width="3"/>
+          <path d="M170 45 l8 -7 l8 7 M170 100 l8 -7 l8 7" fill="none" stroke="#d66c6c" stroke-width="2"/>
+          <text x="180" y="25" font-size="14" fill="#333">l ∥ m</text>
+          <line x1="410" y1="25" x2="410" y2="145" stroke="#54769b" stroke-width="3"/>
+          <line x1="345" y1="100" x2="570" y2="100" stroke="#54769b" stroke-width="3"/>
+          <path d="M410 100 L410 80 L430 80 L430 100" fill="none" stroke="#d66c6c" stroke-width="2"/>
+          <text x="445" y="65" font-size="14" fill="#333">90°</text>
+          <text x="450" y="130" font-size="14" fill="#333">l ⊥ m</text>
+        </svg>
+        <div class="caption">평행선의 같은 방향 화살표 표시, 수직선의 작은 사각형은 직각 표시이다.</div>
+      </div>
+
+      <div class="practice">
+        <b>연습문제 1.</b> 두 직선이 만나지 않고 아무리 길게 늘려도 만나지 않는다면 어떤 관계인가?
+        <br><button onclick="toggleAnswer('a101')">정답 확인</button>
+        <div class="answer" id="a101">정답: 평행하다. 기호로는 ∥를 사용한다.</div>
+      </div>
+    </section>
+
+    <!-- 수학 2 -->
+    <section class="page" id="math2">
+      <h1 class="page-title">02. 각의 관계</h1>
+      <div class="subtitle">각의 이름과 표시, 각도, 평행선에서 생기는 각의 관계를 공부하자.</div>
+
+      <h2>1. 각의 표현</h2>
+      <div class="definition">
+        두 반직선이 한 점에서 만나 이루는 도형을 <b>각</b>이라고 한다.
+        각을 이루는 두 반직선은 변, 만나는 점은 꼭짓점이다.
+      </div>
+
+      <div class="illustration">
+        <svg viewBox="0 0 600 240" width="600" role="img" aria-label="각 ABC 표시">
+          <line x1="120" y1="180" x2="390" y2="180" stroke="#54769b" stroke-width="3"/>
+          <line x1="120" y1="180" x2="265" y2="45" stroke="#54769b" stroke-width="3"/>
+          <path d="M165 180 A45 45 0 0 0 152 150" fill="none" stroke="#d66c6c" stroke-width="3"/>
+          <circle cx="120" cy="180" r="4" fill="#303b50"/>
+          <text x="105" y="202" font-size="16">B</text>
+          <text x="400" y="185" font-size="16">A</text>
+          <text x="268" y="40" font-size="16">C</text>
+          <text x="165" y="145" font-size="18" fill="#d66c6c">∠ABC</text>
+          <text x="120" y="222" text-anchor="middle" font-size="12" fill="#777">꼭짓점 B</text>
+        </svg>
+        <div class="caption">각의 이름은 꼭짓점이 가운데 오도록 쓴다. ∠ABC에서 꼭짓점은 B이다.</div>
+      </div>
+
+      <div class="note">
+        <b>중요!</b> ∠ABC와 ∠CBA는 같은 각을 나타낸다. 가운데 글자인 B가 꼭짓점이다.
+        각의 크기는 45°처럼 도(°) 단위로 나타낸다.
+      </div>
+
+      <h2>2. 각의 종류</h2>
+      <table>
+        <tr><th>종류</th><th>각의 크기</th><th>설명</th></tr>
+        <tr><td>예각</td><td>0°보다 크고 90°보다 작음</td><td>뾰족한 각</td></tr>
+        <tr><td>직각</td><td>90°</td><td>수직으로 만나는 각</td></tr>
+        <tr><td>둔각</td><td>90°보다 크고 180°보다 작음</td><td>넓은 각</td></tr>
+        <tr><td>평각</td><td>180°</td><td>일직선으로 펼쳐진 각</td></tr>
+        <tr><td>주각</td><td>180°보다 크고 360°보다 작음</td><td>한 바퀴보다 작은 큰 각</td></tr>
+        <tr><td>온각</td><td>360°</td><td>한 바퀴 회전</td></tr>
+      </table>
+
+      <div class="illustration">
+        <svg viewBox="0 0 650 210" width="650" role="img" aria-label="예각 직각 둔각 그림">
+          <g transform="translate(100 150)">
+            <line x1="0" y1="0" x2="70" y2="0" stroke="#54769b" stroke-width="3"/>
+            <line x1="0" y1="0" x2="48" y2="-52" stroke="#54769b" stroke-width="3"/>
+            <path d="M30 0 A30 30 0 0 0 21 -21" fill="none" stroke="#d66c6c" stroke-width="2"/>
+            <text x="20" y="28" font-size="14">예각</text>
+          </g>
+          <g transform="translate(315 150)">
+            <line x1="0" y1="0" x2="75" y2="0" stroke="#54769b" stroke-width="3"/>
+            <line x1="0" y1="0" x2="0" y2="-75" stroke="#54769b" stroke-width="3"/>
+            <path d="M0 -20 L20 -20 L20 0" fill="none" stroke="#d66c6c" stroke-width="2"/>
+            <text x="10" y="28" font-size="14">직각 90°</text>
+          </g>
+          <g transform="translate(520 150)">
+            <line x1="0" y1="0" x2="75" y2="0" stroke="#54769b" stroke-width="3"/>
+            <line x1="0" y1="0" x2="-35" y2="-65" stroke="#54769b" stroke-width="3"/>
+            <path d="M32 0 A32 32 0 0 0 -16 -28" fill="none" stroke="#d66c6c" stroke-width="2"/>
+            <text x="-15" y="28" font-size="14">둔각</text>
+          </g>
+        </svg>
+      </div>
+
+      <h2>3. 맞꼭지각</h2>
+      <div class="definition">
+        두 직선이 서로 교차할 때 서로 마주 보는 두 각을 맞꼭지각이라고 한다.
+        맞꼭지각의 크기는 항상 같다.
+      </div>
+
+      <div class="illustration">
+        <svg viewBox="0 0 600 250" width="600" role="img" aria-label="맞꼭지각 그림">
+          <line x1="100" y1="205" x2="480" y2="35" stroke="#54769b" stroke-width="3"/>
+          <line x1="105" y1="35" x2="475" y2="205" stroke="#54769b" stroke-width="3"/>
+          <path d="M260 125 A35 35 0 0 0 291 105" fill="none" stroke="#d66c6c" stroke-width="4"/>
+          <path d="M340 115 A35 35 0 0 0 309 135" fill="none" stroke="#638d76" stroke-width="4"/>
+          <text x="220" y="105" font-size="16" fill="#d66c6c">①</text>
+          <text x="350" y="155" font-size="16" fill="#638d76">②</text>
+          <text x="300" y="225" text-anchor="middle" font-size="14">①과 ②는 맞꼭지각이므로 크기가 같다.</text>
+        </svg>
+      </div>
+
+      <div class="formula">맞꼭지각의 크기 = 서로 같다</div>
+
+      <h2>4. 평행선과 각</h2>
+      <div class="illustration">
+        <svg viewBox="0 0 650 300" width="650" role="img" aria-label="평행선과 동위각 엇각">
+          <line x1="65" y1="85" x2="585" y2="85" stroke="#54769b" stroke-width="3"/>
+          <line x1="65" y1="220" x2="585" y2="220" stroke="#54769b" stroke-width="3"/>
+          <path d="M180 85 l8 -7 l8 7 M180 220 l8 -7 l8 7" fill="none" stroke="#d66c6c" stroke-width="2"/>
+          <line x1="170" y1="25" x2="390" y2="275" stroke="#638d76" stroke-width="3"/>
+          <text x="590" y="90" font-size="14">l</text>
+          <text x="590" y="225" font-size="14">m</text>
+          <text x="390" y="35" font-size="14" fill="#638d76">횡단선</text>
+          <text x="215" y="75" font-size="13" fill="#d66c6c">①</text>
+          <text x="350" y="110" font-size="13" fill="#d66c6c">②</text>
+          <text x="240" y="205" font-size="13" fill="#638d76">③</text>
+          <text x="380" y="238" font-size="13" fill="#638d76">④</text>
+          <text x="325" y="295" text-anchor="middle" font-size="12">l ∥ m</text>
+        </svg>
+        <div class="caption">평행한 두 직선을 다른 직선이 가로지를 때 여러 각의 관계가 생긴다.</div>
+      </div>
+
+      <table>
+        <tr><th>각의 관계</th><th>성질</th></tr>
+        <tr><td>동위각</td><td>크기가 같다.</td></tr>
+        <tr><td>엇각</td><td>크기가 같다.</td></tr>
+        <tr><td>같은 쪽 내각</td><td>두 각의 합이 180°이다.</td></tr>
+      </table>
+
+      <div class="note">
+        위 성질은 두 직선이 평행할 때 성립한다. 평행하지 않은 두 직선에서는 일반적으로 성립하지 않는다.
+      </div>
+
+      <h2>5. 연습문제</h2>
+      <div class="practice">
+        <b>문제 1.</b> ∠ABC에서 꼭짓점은 어느 점인가?
+        <br><button onclick="toggleAnswer('a201')">정답 확인</button>
+        <div class="answer" id="a201">정답: B. 각의 이름에서 가운데 글자가 꼭짓점이다.</div>
+      </div>
+      <div class="practice">
+        <b>문제 2.</b> 한 각이 125°라면 어떤 각인가?
+        <br><button onclick="toggleAnswer('a202')">정답 확인</button>
+        <div class="answer" id="a202">정답: 둔각. 90°보다 크고 180°보다 작다.</div>
+      </div>
+      <div class="practice">
+        <b>문제 3.</b> 맞꼭지각 중 한 각이 72°라면 반대쪽 각은?
+        <br><button onclick="toggleAnswer('a203')">정답 확인</button>
+        <div class="answer" id="a203">정답: 72°. 맞꼭지각의 크기는 같다.</div>
+      </div>
+    </section>
+
+    <!-- 수학 3 -->
+    <section class="page" id="math3">
+      <h1 class="page-title">03. 평면도형</h1>
+      <div class="subtitle">삼각형, 다각형, 원의 성질과 공식을 알아보자.</div>
+
+      <h2>1. 삼각형</h2>
+      <div class="definition">
+        세 개의 선분으로 둘러싸인 도형을 삼각형이라고 한다.
+        삼각형의 내각의 합은 항상 180°이다.
+      </div>
+
+      <div class="illustration">
+        <svg viewBox="0 0 600 240" width="600" role="img" aria-label="삼각형 내각">
+          <polygon points="100,190 500,190 280,35" fill="#eaf2fa" stroke="#54769b" stroke-width="3"/>
+          <path d="M140 190 A40 40 0 0 0 132 166" fill="none" stroke="#d66c6c" stroke-width="3"/>
+          <path d="M460 190 A40 40 0 0 1 468 166" fill="none" stroke="#638d76" stroke-width="3"/>
+          <text x="145" y="170" font-size="15" fill="#d66c6c">A</text>
+          <text x="455" y="170" font-size="15" fill="#638d76">B</text>
+          <text x="280" y="75" font-size="15" fill="#8975ad">C</text>
+          <text x="300" y="225" text-anchor="middle" font-size="14">∠A + ∠B + ∠C = 180°</text>
+        </svg>
+      </div>
+
+      <div class="formula">삼각형의 내각의 합 = 180°</div>
+      <p>증명 과정은 실험실의 '삼각형 내각의 합' 항목에서 확인할 수 있다.</p>
+
+      <h2>2. 삼각형의 종류</h2>
+      <table>
+        <tr><th>종류</th><th>기준</th></tr>
+        <tr><td>정삼각형</td><td>세 변의 길이가 모두 같고 세 각이 각각 60°</td></tr>
+        <tr><td>이등변삼각형</td><td>두 변의 길이가 같고 그에 대한 두 밑각이 같다.</td></tr>
+        <tr><td>직각삼각형</td><td>한 각이 90°</td></tr>
+      </table>
+
+      <h2>3. 다각형의 내각의 합</h2>
+      <div class="definition">
+        다각형의 한 꼭짓점에서 대각선을 그으면 여러 개의 삼각형으로 나눌 수 있다.
+      </div>
+      <div class="formula">n각형의 내각의 합 = (n - 2) × 180°</div>
+      <div class="example">
+        <b>예시: 오각형</b><br>
+        (5 - 2) × 180° = 540°
+      </div>
+
+      <h2>4. 원의 구성 요소</h2>
+      <div class="illustration">
+        <svg viewBox="0 0 600 300" width="600" role="img" aria-label="원의 반지름 지름 원주">
+          <circle cx="285" cy="145" r="105" fill="#eef4fb" stroke="#54769b" stroke-width="3"/>
+          <line x1="180" y1="145" x2="390" y2="145" stroke="#d66c6c" stroke-width="3"/>
+          <line x1="285" y1="145" x2="370" y2="83" stroke="#638d76" stroke-width="3"/>
+          <circle cx="285" cy="145" r="4" fill="#303b50"/>
+          <text x="285" y="165" font-size="14" text-anchor="middle">중심 O</text>
+          <text x="285" y="130" font-size="14" text-anchor="middle" fill="#d66c6c">지름</text>
+          <text x="345" y="100" font-size="14" fill="#638d76">반지름 r</text>
+        </svg>
+      </div>
+      <table>
+        <tr><th>용어</th><th>뜻</th></tr>
+        <tr><td>중심</td><td>원의 한가운데 점</td></tr>
+        <tr><td>반지름</td><td>중심에서 원 위의 한 점까지의 거리</td></tr>
+        <tr><td>지름</td><td>중심을 지나 원 위의 두 점을 잇는 선분</td></tr>
+        <tr><td>원주</td><td>원의 둘레</td></tr>
+      </table>
+
+      <div class="formula">지름 = 반지름 × 2</div>
+      <div class="formula">원의 넓이 = π × 반지름 × 반지름</div>
+      <div class="formula">원의 둘레 = 2 × π × 반지름</div>
+
+      <div class="note">
+        π(파이)는 원주를 지름으로 나눈 값이다. 약 3.141592…이며, 3.14는 계산에 사용하는 근삿값이다.
+      </div>
+
+      <h2>5. 연습문제</h2>
+      <div class="practice">
+        <b>문제 1.</b> 삼각형의 두 각이 50°, 60°라면 나머지 각은?
+        <br><button onclick="toggleAnswer('a301')">정답 확인</button>
+        <div class="answer" id="a301">180° - 50° - 60° = 70°</div>
+      </div>
+      <div class="practice">
+        <b>문제 2.</b> 한 변의 길이가 4cm인 정사각형의 넓이는?
+        <br><button onclick="toggleAnswer('a302')">정답 확인</button>
+        <div class="answer" id="a302">4 × 4 = 16cm²</div>
+      </div>
+      <div class="practice">
+        <b>문제 3.</b> 반지름이 5cm인 원의 지름은?
+        <br><button onclick="toggleAnswer('a303')">정답 확인</button>
+        <div class="answer" id="a303">5 × 2 = 10cm</div>
+      </div>
+    </section>
+
+    <!-- 수학 4 -->
+    <section class="page" id="math4">
+      <h1 class="page-title">04. 입체도형</h1>
+      <div class="subtitle">평면도형이 공간에서 입체가 되면 어떤 성질을 가질까?</div>
+
+      <h2>1. 입체도형의 구성 요소</h2>
+      <div class="definition">
+        입체도형은 공간에서 부피를 가지는 도형이다.<br>
+        <b>면</b>은 입체도형의 겉을 이루는 부분, <b>모서리</b>는 면과 면이 만나는 선분,
+        <b>꼭짓점</b>은 모서리와 모서리가 만나는 점이다.
+      </div>
+
+      <div class="illustration">
+        <svg viewBox="0 0 600 280" width="600" role="img" aria-label="정육면체의 면 모서리 꼭짓점">
+          <polygon points="160,90 310,90 390,145 240,145" fill="#e8f0fa" stroke="#54769b" stroke-width="2"/>
+          <polygon points="160,90 240,145 240,235 160,180" fill="#dce9f6" stroke="#54769b" stroke-width="2"/>
+          <polygon points="240,145 390,145 390,235 240,235" fill="#cbddef" stroke="#54769b" stroke-width="2"/>
+          <line x1="310" y1="90" x2="310" y2="180" stroke="#54769b" stroke-width="2"/>
+          <line x1="310" y1="180" x2="390" y2="235" stroke="#54769b" stroke-width="2"/>
+          <line x1="160" y1="180" x2="310" y2="180" stroke="#54769b" stroke-width="2"/>
+          <circle cx="240" cy="145" r="4" fill="#d66c6c"/>
+          <text x="250" y="137" font-size="14" fill="#d66c6c">꼭짓점</text>
+          <text x="335" y="160" font-size="14" fill="#54769b">모서리</text>
+          <text x="285" y="215" font-size="14" fill="#54769b">면</text>
+        </svg>
+      </div>
+
+      <h2>2. 각기둥과 각뿔</h2>
+      <table>
+        <tr><th>종류</th><th>특징</th></tr>
+        <tr><td>각기둥</td><td>서로 평행하고 합동인 두 밑면과 옆면으로 이루어짐</td></tr>
+        <tr><td>각뿔</td><td>다각형인 밑면과 하나의 꼭짓점으로 모이는 삼각형 옆면으로 이루어짐</td></tr>
+        <tr><td>원기둥</td><td>두 원 모양의 밑면과 곡면으로 이루어짐</td></tr>
+        <tr><td>원뿔</td><td>원 모양의 밑면과 하나의 꼭짓점으로 모이는 곡면으로 이루어짐</td></tr>
+        <tr><td>구</td><td>표면의 모든 점이 중심에서 같은 거리에 있는 입체도형</td></tr>
+      </table>
+
+      <h2>3. 부피와 겉넓이</h2>
+      <div class="formula">직육면체의 부피 = 가로 × 세로 × 높이</div>
+      <div class="formula">정육면체의 부피 = 한 모서리³</div>
+      <div class="formula">각기둥의 부피 = 밑넓이 × 높이</div>
+      <div class="formula">각뿔의 부피 = 밑넓이 × 높이 ÷ 3</div>
+
+      <div class="warning">
+        부피의 단위는 cm³, m³처럼 세제곱 단위를 사용한다.
+        넓이의 단위인 cm²와 혼동하지 않도록 주의하자.
+      </div>
+
+      <h2>4. 연습문제</h2>
+      <div class="practice">
+        <b>문제 1.</b> 가로 3cm, 세로 4cm, 높이 5cm인 직육면체의 부피는?
+        <br><button onclick="toggleAnswer('a401')">정답 확인</button>
+        <div class="answer" id="a401">3 × 4 × 5 = 60cm³</div>
+      </div>
+      <div class="practice">
+        <b>문제 2.</b> 한 모서리가 3cm인 정육면체의 부피는?
+        <br><button onclick="toggleAnswer('a402')">정답 확인</button>
+        <div class="answer" id="a402">3³ = 27cm³</div>
+      </div>
+    </section>
+
+    <!-- 수학 5 -->
+    <section class="page" id="math5">
+      <h1 class="page-title">05. 정다면체</h1>
+      <div class="subtitle">정다면체의 종류와 성질, 그리고 왜 딱 5개인지 알아보자.</div>
+
+      <h2>1. 정다면체란?</h2>
+      <div class="definition">
+        모든 면이 서로 합동인 정다각형이고, 각 꼭짓점에 모이는 면의 개수가 모두 같은 볼록다면체를 정다면체라고 한다.
+      </div>
+
+      <div class="illustration">
+        <svg viewBox="0 0 650 230" width="650" role="img" aria-label="정다면체 예시">
+          <g transform="translate(75 20)">
+            <polygon points="50,15 10,85 90,85" fill="#dceafa" stroke="#54769b" stroke-width="2"/>
+            <polygon points="50,15 10,85 50,125" fill="#c8dcef" stroke="#54769b" stroke-width="2"/>
+            <polygon points="50,15 90,85 50,125" fill="#e9f1fa" stroke="#54769b" stroke-width="2"/>
+            <polygon points="10,85 90,85 50,125" fill="#b9d0e7" stroke="#54769b" stroke-width="2"/>
+            <text x="50" y="155" text-anchor="middle" font-size="13">정사면체</text>
+          </g>
+          <g transform="translate(190 35)">
+            <polygon points="20,20 85,20 110,45 45,45" fill="#e9f1fa" stroke="#54769b" stroke-width="2"/>
+            <polygon points="20,20 45,45 45,110 20,85" fill="#c8dcef" stroke="#54769b" stroke-width="2"/>
+            <polygon points="45,45 110,45 110,110 45,110" fill="#dceafa" stroke="#54769b" stroke-width="2"/>
+            <polygon points="20,85 45,110 110,110 85,85" fill="#b9d0e7" stroke="#54769b" stroke-width="2"/>
+            <text x="65" y="145" text-anchor="middle" font-size="13">정육면체</text>
+          </g>
+          <g transform="translate(350 25)">
+            <polygon points="50,10 10,90 90,90" fill="#dceafa" stroke="#54769b" stroke-width="2"/>
+            <polygon points="50,155 10,90 90,90" fill="#c8dcef" stroke="#54769b" stroke-width="2"/>
+            <line x1="50" y1="10" x2="50" y2="155" stroke="#54769b" stroke-width="2"/>
+            <text x="50" y="185" text-anchor="middle" font-size="13">정팔면체</text>
+          </g>
+          <g transform="translate(475 35)">
+            <polygon points="50,5 95,35 80,90 20,90 5,35" fill="#dceafa" stroke="#54769b" stroke-width="2"/>
+            <polygon points="50,5 50,110 95,35" fill="#c8dcef" stroke="#54769b" stroke-width="2"/>
+            <text x="50" y="145" text-anchor="middle" font-size="13">정십이면체</text>
+          </g>
+        </svg>
+        <div class="caption">개념을 보여주기 위한 간략한 모식도이다. 실제 정다면체의 면과 모서리 수는 아래 표를 확인하자.</div>
+      </div>
+
+      <h2>2. 정다면체의 종류와 성질</h2>
+      <div class="scroll-table">
+        <table>
+          <thead>
+            <tr>
+              <th>정다면체 종류</th>
+              <th>면의 모양</th>
+              <th>한 꼭짓점에 모이는 면의 개수 (m)</th>
+              <th>면의 개수 (F)</th>
+              <th>꼭짓점의 개수 (V)</th>
+              <th>모서리의 개수 (E)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><b>정사면체</b></td><td>정삼각형 (n=3)</td><td>3</td><td><b>4</b></td><td><b>4</b></td><td><b>6</b></td></tr>
+            <tr><td><b>정육면체</b></td><td>정사각형 (n=4)</td><td>3</td><td><b>6</b></td><td><b>8</b></td><td><b>12</b></td></tr>
+            <tr><td><b>정팔면체</b></td><td>정삼각형 (n=3)</td><td>4</td><td><b>8</b></td><td><b>6</b></td><td><b>12</b></td></tr>
+            <tr><td><b>정십이면체</b></td><td>정오각형 (n=5)</td><td>3</td><td><b>12</b></td><td><b>20</b></td><td><b>30</b></td></tr>
+            <tr><td><b>정이십면체</b></td><td>정삼각형 (n=3)</td><td>5</td><td><b>20</b></td><td><b>12</b></td><td><b>30</b></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="note">
+        n은 한 면을 이루는 정다각형의 변의 수이고, m은 한 꼭짓점에 모이는 면의 수이다.
+        예를 들어 정육면체는 정사각형(n=4)이 한 꼭짓점에 3개(m=3) 모인다.
+      </div>
+
+      <h2>3. 정다면체가 딱 5개인 이유</h2>
+      <p>핵심은 한 꼭짓점에 모이는 면들의 각의 합이 360°보다 작아야 한다는 사실이다.</p>
+
+      <div class="proof-step">
+        <b>1단계. 정다각형의 내각을 구한다.</b><br>
+        한 면이 정n각형이라면 내각의 크기는 다음과 같다.
+        <div class="formula">정n각형의 한 내각 = (n - 2) × 180° ÷ n</div>
+      </div>
+
+      <div class="proof-step">
+        <b>2단계. 한 꼭짓점에 모이는 면의 개수를 생각한다.</b><br>
+        한 꼭짓점에는 면이 적어도 3개 모여야 한다.
+        그리고 평평하게 펼쳐지는 360°가 되면 입체적으로 접히지 못하므로 각의 합은 360°보다 작아야 한다.
+        <div class="formula">m × (n - 2) × 180° ÷ n &lt; 360°</div>
+      </div>
+
+      <div class="proof-step">
+        <b>3단계. 가능한 n과 m을 찾는다.</b><br>
+        m은 3 이상인 정수이다. 위 부등식을 정리하면 다음과 같다.
+        <div class="formula">m(n - 2) &lt; 2n</div>
+        n이 6 이상이면 정육각형의 내각은 120° 이상이다.
+        면이 최소 3개 모이면 각의 합이 360° 이상이므로 불가능하다.
+        따라서 n은 3, 4, 5만 가능하다.
+      </div>
+
+      <div class="proof-step">
+        <b>4단계. 세 경우를 각각 계산한다.</b>
+        <table>
+          <tr><th>면의 모양</th><th>한 면의 내각</th><th>가능한 m</th></tr>
+          <tr><td>정삼각형</td><td>60°</td><td>3, 4, 5</td></tr>
+          <tr><td>정사각형</td><td>90°</td><td>3</td></tr>
+          <tr><td>정오각형</td><td>108°</td><td>3</td></tr>
+        </table>
+        따라서 가능한 조합은 다음 다섯 가지뿐이다.
+        <div class="formula">(n,m) = (3,3), (3,4), (3,5), (4,3), (5,3)</div>
+      </div>
+
+      <div class="warning">
+        이 각도 조건은 가능한 정다면체의 후보를 다섯 가지로 제한하는 핵심 증명이다.
+        이 다섯 조합은 실제로 각각 닫힌 볼록 정다면체로 만들 수 있다.
+        따라서 정다면체는 정확히 다섯 종류이다.
+      </div>
+
+      <h2>4. 면·꼭짓점·모서리 개수 공식</h2>
+      <div class="definition">
+        정다면체에서 한 면은 n개의 모서리를 가지고, 한 모서리는 두 면이 공유한다.
+        따라서 전체 모서리를 면에서 세면 두 번씩 세어진다.
+      </div>
+      <div class="formula">nF = 2E</div>
+
+      <div class="definition">
+        한 꼭짓점에는 m개의 모서리가 모인다. 모든 꼭짓점에서 모서리를 세면 각 모서리가 양 끝에서 두 번씩 세어진다.
+      </div>
+      <div class="formula">mV = 2E</div>
+
+      <div class="definition">
+        볼록다면체에는 오일러 공식이 성립한다.
+      </div>
+      <div class="formula">V - E + F = 2</div>
+
+      <h2>5. 정다면체의 개수 직접 계산</h2>
+      <p>위의 세 식을 함께 사용하면 각 정다면체의 면, 꼭짓점, 모서리 개수를 계산할 수 있다.</p>
+
+      <div class="example">
+        <b>예시: 정사면체 (n=3, m=3)</b><br>
+        F = 2E/3, V = 2E/3 이므로 오일러 공식에 대입하면<br>
+        2E/3 - E + 2E/3 = 2<br>
+        E/3 = 2<br>
+        E = 6<br>
+        따라서 F = 4, V = 4이다.
+      </div>
+
+      <div class="example">
+        <b>예시: 정육면체 (n=4, m=3)</b><br>
+        F = E/2, V = 2E/3 이므로<br>
+        2E/3 - E + E/2 = 2<br>
+        E/6 = 2<br>
+        E = 12<br>
+        따라서 F = 6, V = 8이다.
+      </div>
+
+      <div class="note">
+        다른 정다면체도 같은 방법으로 계산할 수 있다.
+        실험실에서 다섯 종류의 계산 과정을 직접 확인할 수 있다.
+      </div>
+    </section>
+
+    <!-- 영어 1 -->
+    <section class="page" id="eng1">
+      <h1 class="page-title">영어 01. There + be동사</h1>
+      <div class="subtitle">무언가가 존재하거나 어디에 있다는 것을 표현하는 문법.</div>
+
+      <h2>1. 기본 구조</h2>
+      <div class="formula">There + be동사 + 주어 + 장소/시간</div>
+      <p>There is 또는 There are는 '~이 있다'라는 뜻으로 사용한다.</p>
+
+      <table>
+        <tr><th>주어</th><th>be동사</th><th>예문</th></tr>
+        <tr><td>단수 명사</td><td>There is</td><td>There is a book.</td></tr>
+        <tr><td>복수 명사</td><td>There are</td><td>There are two books.</td></tr>
+      </table>
+
+      <div class="example">
+        There is a cat under the table.<br>
+        탁자 아래에 고양이 한 마리가 있다.<br><br>
+        There are three students in the room.<br>
+        방 안에 학생 세 명이 있다.
+      </div>
+
+      <h2>2. 부정문과 의문문</h2>
+      <div class="formula">There is not = There isn't</div>
+      <div class="formula">There are not = There aren't</div>
+      <div class="example">
+        Is there a library nearby? (근처에 도서관이 있나요?)<br>
+        Are there any questions? (질문이 있나요?)
+      </div>
+
+      <h2>연습문제</h2>
+      <div class="practice">
+        <b>문제 1.</b> There ( is / are ) two dogs in the park.
+        <br><button onclick="toggleAnswer('e101')">정답 확인</button>
+        <div class="answer" id="e101">are. 주어 two dogs가 복수이므로 are를 사용한다.</div>
+      </div>
+      <div class="practice">
+        <b>문제 2.</b> There ( is / are ) a pencil on the desk.
+        <br><button onclick="toggleAnswer('e102')">정답 확인</button>
+        <div class="answer" id="e102">is. 주어 a pencil이 단수이다.</div>
+      </div>
+    </section>
+
+    <!-- 영어 2 -->
+    <section class="page" id="eng2">
+      <h1 class="page-title">영어 02. to부정사 - 부사적 용법</h1>
+      <div class="subtitle">이번 단원에서는 목적, 즉 '~하기 위해서'라는 뜻만 공부한다.</div>
+
+      <h2>1. 목적을 나타내는 to부정사</h2>
+      <div class="definition">
+        to + 동사원형이 문장에서 '~하기 위해서'라는 목적을 나타낼 때 부사적 용법이라고 한다.
+      </div>
+      <div class="formula">to + 동사원형 = ~하기 위해서</div>
+
+      <div class="example">
+        I study hard to pass the exam.<br>
+        나는 시험에 합격하기 위해 열심히 공부한다.<br><br>
+        She went to the store to buy milk.<br>
+        그녀는 우유를 사기 위해 가게에 갔다.
+      </div>
+
+      <h2>2. 해석하는 방법</h2>
+      <p>문장에서 to 뒤에 동사원형이 있는지 확인하고, '~하기 위해서'를 넣어 자연스럽게 해석한다.</p>
+
+      <div class="note">
+        주의: to 뒤에는 동사원형이 온다. to buying, to went처럼 쓰지 않는다.
+      </div>
+
+      <h2>연습문제</h2>
+      <div class="practice">
+        <b>문제 1.</b> I exercise ( to / for ) stay healthy.
+        <br><button onclick="toggleAnswer('e201')">정답 확인</button>
+        <div class="answer" id="e201">to. to stay는 건강을 유지하기 위해서라는 목적을 나타낸다.</div>
+      </div>
+      <div class="practice">
+        <b>문제 2.</b> '나는 책을 읽기 위해 도서관에 갔다.'를 영어로 쓰시오.
+        <br><button onclick="toggleAnswer('e202')">정답 확인</button>
+        <div class="answer" id="e202">I went to the library to read a book.</div>
+      </div>
+    </section>
+
+    <!-- 영어 3 -->
+    <section class="page" id="eng3">
+      <h1 class="page-title">영어 03. to부정사 - 명사적 용법</h1>
+      <div class="subtitle">to부정사가 문장에서 명사처럼 주어, 목적어, 보어 역할을 한다.</div>
+
+      <h2>1. 주어 역할</h2>
+      <div class="formula">To + 동사원형 + 동사 ...</div>
+      <div class="example">
+        To learn English is fun.<br>
+        영어를 배우는 것은 재미있다.
+      </div>
+
+      <h2>2. 목적어 역할</h2>
+      <div class="formula">주어 + 동사 + to + 동사원형</div>
+      <div class="example">
+        I want to travel.<br>
+        나는 여행하기를 원한다.
+      </div>
+
+      <h2>3. 보어 역할</h2>
+      <div class="formula">주어 + be동사 + to + 동사원형</div>
+      <div class="example">
+        My dream is to become a doctor.<br>
+        나의 꿈은 의사가 되는 것이다.
+      </div>
+
+      <table>
+        <tr><th>역할</th><th>예문</th><th>해석</th></tr>
+        <tr><td>주어</td><td>To swim is fun.</td><td>수영하는 것은 재미있다.</td></tr>
+        <tr><td>목적어</td><td>I like to swim.</td><td>나는 수영하는 것을 좋아한다.</td></tr>
+        <tr><td>보어</td><td>My hobby is to swim.</td><td>내 취미는 수영하는 것이다.</td></tr>
+      </table>
+
+      <h2>연습문제</h2>
+      <div class="practice">
+        <b>문제 1.</b> To read books is useful. 여기서 To read books의 역할은?
+        <br><button onclick="toggleAnswer('e301')">정답 확인</button>
+        <div class="answer" id="e301">주어 역할. 문장의 주어 자리에 있다.</div>
+      </div>
+      <div class="practice">
+        <b>문제 2.</b> I hope to see you. 여기서 to see you의 역할은?
+        <br><button onclick="toggleAnswer('e302')">정답 확인</button>
+        <div class="answer" id="e302">목적어 역할. hope의 목적어이다.</div>
+      </div>
+      <div class="practice">
+        <b>문제 3.</b> Her plan is to study abroad. 여기서 to study abroad의 역할은?
+        <br><button onclick="toggleAnswer('e303')">정답 확인</button>
+        <div class="answer" id="e303">보어 역할. 주어 Her plan을 설명한다.</div>
+      </div>
+    </section>
+
+    <!-- 영어 4 -->
+    <section class="page" id="eng4">
+      <h1 class="page-title">영어 04. 접속사 that</h1>
+      <div class="subtitle">that으로 두 문장의 내용을 연결하는 방법을 공부하자.</div>
+
+      <h2>1. 접속사 that의 역할</h2>
+      <div class="definition">
+        접속사 that은 뒤에 완전한 문장을 이끌고, 앞의 동사나 형용사 등이 그 내용을 설명하도록 연결한다.
+        이때 that절은 '~라는 것'이라고 해석할 수 있다.
+      </div>
+
+      <div class="formula">주어 + 동사 + that + 주어 + 동사</div>
+
+      <div class="example">
+        I think that he is kind.<br>
+        나는 그가 친절하다고 생각한다.<br><br>
+        She knows that I am busy.<br>
+        그녀는 내가 바쁘다는 것을 안다.
+      </div>
+
+      <h2>2. that 뒤에는 완전한 문장</h2>
+      <p>접속사 that 뒤에는 주어와 동사 등을 갖춘 완전한 문장이 온다.</p>
+      <div class="note">
+        접속사 that은 문장에서 주어나 목적어 역할을 하는 것이 아니라 문장과 문장을 연결한다.
+        구어체에서는 목적어절을 이끄는 that을 생략할 수도 있다.
+      </div>
+
+      <h2>연습문제</h2>
+      <div class="practice">
+        <b>문제 1.</b> I believe ( that / what ) she is honest.
+        <br><button onclick="toggleAnswer('e401')">정답 확인</button>
+        <div class="answer" id="e401">that. 뒤에 she is honest라는 완전한 문장이 온다.</div>
+      </div>
+      <div class="practice">
+        <b>문제 2.</b> '나는 네가 행복하다는 것을 안다.'를 영어로 쓰시오.
+        <br><button onclick="toggleAnswer('e402')">정답 확인</button>
+        <div class="answer" id="e402">I know that you are happy.</div>
+      </div>
+    </section>
+
+    <!-- 영어 5 -->
+    <section class="page" id="eng5">
+      <h1 class="page-title">영어 05. 관계대명사 that</h1>
+      <div class="subtitle">앞에 나온 명사를 설명하는 문장을 연결하는 that.</div>
+
+      <h2>1. 관계대명사 that의 역할</h2>
+      <div class="definition">
+        관계대명사 that은 앞에 나온 명사(선행사)를 뒤에서 설명하는 절을 이끈다.
+        사람과 사물 모두를 선행사로 받을 수 있다.
+      </div>
+
+      <div class="formula">선행사 + that + 불완전한 문장</div>
+
+      <div class="example">
+        I have a book that is interesting.<br>
+        나는 재미있는 책을 가지고 있다.<br><br>
+        The boy that likes music is my friend.<br>
+        음악을 좋아하는 소년은 내 친구다.
+      </div>
+
+      <h2>2. 접속사 that과 관계대명사 that 비교</h2>
+      <table>
+        <tr><th>구분</th><th>접속사 that</th><th>관계대명사 that</th></tr>
+        <tr><td>역할</td><td>명사절을 이끈다.</td><td>선행사를 설명하는 절을 이끈다.</td></tr>
+        <tr><td>뒤 문장</td><td>완전한 문장</td><td>주어나 목적어 등이 빠진 불완전한 문장</td></tr>
+        <tr><td>예시</td><td>I know that he runs.</td><td>The dog that runs is fast.</td></tr>
+      </table>
+
+      <div class="note">
+        관계대명사 that이 주어 역할을 할 때는 보통 생략할 수 없다.
+        목적어 역할을 할 때는 생략할 수 있는 경우가 많다.
+      </div>
+
+      <h2>연습문제</h2>
+      <div class="practice">
+        <b>문제 1.</b> The movie that I watched was fun. 여기서 that의 역할은?
+        <br><button onclick="toggleAnswer('e501')">정답 확인</button>
+        <div class="answer" id="e501">관계대명사. 앞의 The movie를 설명하며 watched의 목적어가 빠져 있다.</div>
+      </div>
+      <div class="practice">
+        <b>문제 2.</b> I think that he is right. 여기서 that의 역할은?
+        <br><button onclick="toggleAnswer('e502')">정답 확인</button>
+        <div class="answer" id="e502">접속사. that 뒤에 he is right라는 완전한 문장이 온다.</div>
+      </div>
+    </section>
+
+    <!-- 과학 1 -->
+    <section class="page" id="sci1">
+      <h1 class="page-title">과학 04. 물질의 상태 변화</h1>
+      <div class="subtitle">고체, 액체, 기체는 어떻게 서로 바뀔까?</div>
+
+      <h2>1. 물질의 세 가지 상태</h2>
+      <table>
+        <tr><th>상태</th><th>모양</th><th>부피</th><th>입자의 특징</th></tr>
+        <tr><td>고체</td><td>일정함</td><td>일정함</td><td>입자가 가까이 있고 제자리에서 진동</td></tr>
+        <tr><td>액체</td><td>담긴 용기에 따라 변함</td><td>거의 일정함</td><td>입자가 가까이 있으나 서로 이동</td></tr>
+        <tr><td>기체</td><td>용기 전체를 채움</td><td>용기에 따라 변함</td><td>입자 사이가 멀고 자유롭게 운동</td></tr>
+      </table>
+
+      <div class="illustration">
+        <svg viewBox="0 0 650 210" width="650" role="img" aria-label="고체 액체 기체 입자 모형">
+          <g transform="translate(25 15)">
+            <rect x="0" y="0" width="170" height="145" rx="8" fill="#f5f7fa" stroke="#9aabba" stroke-width="2"/>
+            <g fill="#54769b">
+              <circle cx="40" cy="40" r="7"/><circle cx="70" cy="40" r="7"/><circle cx="100" cy="40" r="7"/><circle cx="130" cy="40" r="7"/>
+              <circle cx="40" cy="70" r="7"/><circle cx="70" cy="70" r="7"/><circle cx="100" cy="70" r="7"/><circle cx="130" cy="70" r="7"/>
+              <circle cx="40" cy="100" r="7"/><circle cx="70" cy="100" r="7"/><circle cx="100" cy="100" r="7"/><circle cx="130" cy="100" r="7"/>
+            </g>
+            <text x="85" y="180" text-anchor="middle" font-size="14">고체</text>
+          </g>
+          <g transform="translate(240 15)">
+            <rect x="0" y="0" width="170" height="145" rx="8" fill="#f5f7fa" stroke="#9aabba" stroke-width="2"/>
+            <g fill="#638d76">
+              <circle cx="40" cy="90" r="7"/><circle cx="72" cy="100" r="7"/><circle cx="105" cy="85" r="7"/><circle cx="130" cy="110" r="7"/>
+              <circle cx="55" cy="120" r="7"/><circle cx="90" cy="125" r="7"/><circle cx="120" cy="70" r="7"/><circle cx="75" cy="75" r="7"/>
+            </g>
+            <text x="85" y="180" text-anchor="middle" font-size="14">액체</text>
+          </g>
+          <g transform="translate(455 15)">
+            <rect x="0" y="0" width="170" height="145" rx="8" fill="#f5f7fa" stroke="#9aabba" stroke-width="2"/>
+            <g fill="#d18b5b">
+              <circle cx="30" cy="25" r="7"/><circle cx="125" cy="35" r="7"/><circle cx="80" cy="75" r="7"/>
+              <circle cx="145" cy="110" r="7"/><circle cx="35" cy="120" r="7"/><circle cx="105" cy="25" r="7"/>
+            </g>
+            <text x="85" y="180" text-anchor="middle" font-size="14">기체</text>
+          </g>
+        </svg>
+        <div class="caption">입자 모형은 물질을 이루는 작은 입자들의 배열과 간격을 나타낸다.</div>
+      </div>
+
+      <h2>2. 상태 변화의 종류</h2>
+      <table>
+        <tr><th>변화</th><th>이름</th><th>열에너지</th></tr>
+        <tr><td>고체 → 액체</td><td>융해</td><td>흡수</td></tr>
+        <tr><td>액체 → 고체</td><td>응고</td><td>방출</td></tr>
+        <tr><td>액체 → 기체</td><td>기화</td><td>흡수</td></tr>
+        <tr><td>기체 → 액체</td><td>액화</td><td>방출</td></tr>
+        <tr><td>고체 → 기체</td><td>승화</td><td>흡수</td></tr>
+        <tr><td>기체 → 고체</td><td>승화</td><td>방출</td></tr>
+      </table>
+
+      <div class="illustration">
+        <svg viewBox="0 0 650 210" width="650" role="img" aria-label="물질 상태 변화">
+          <rect x="20" y="50" width="155" height="80" rx="9" fill="#e8f0fa" stroke="#54769b"/>
+          <rect x="248" y="50" width="155" height="80" rx="9" fill="#e7f4ec" stroke="#638d76"/>
+          <rect x="475" y="50" width="155" height="80" rx="9" fill="#fff0e4" stroke="#c68c5c"/>
+          <text x="97" y="96" text-anchor="middle" font-size="20">고체</text>
+          <text x="325" y="96" text-anchor="middle" font-size="20">액체</text>
+          <text x="552" y="96" text-anchor="middle" font-size="20">기체</text>
+          <path d="M175 70 H248 M240 63 L248 70 L240 77" fill="none" stroke="#d66c6c" stroke-width="2"/>
+          <path d="M248 110 H175 M183 103 L175 110 L183 117" fill="none" stroke="#54769b" stroke-width="2"/>
+          <path d="M403 70 H475 M467 63 L475 70 L467 77" fill="none" stroke="#d66c6c" stroke-width="2"/>
+          <path d="M475 110 H403 M411 103 L403 110 L411 117" fill="none" stroke="#54769b" stroke-width="2"/>
+          <text x="210" y="48" text-anchor="middle" font-size="12">융해</text>
+          <text x="210" y="145" text-anchor="middle" font-size="12">응고</text>
+          <text x="440" y="48" text-anchor="middle" font-size="12">기화</text>
+          <text x="440" y="145" text-anchor="middle" font-size="12">액화</text>
+        </svg>
+      </div>
+
+      <div class="note">
+        상태가 변해도 물질을 이루는 입자 자체가 다른 물질로 바뀌는 것은 아니다.
+        입자의 배열, 간격, 운동 상태가 달라진다.
+      </div>
+
+      <h2>연습문제</h2>
+      <div class="practice">
+        <b>문제 1.</b> 얼음이 물로 변하는 상태 변화는?
+        <br><button onclick="toggleAnswer('s101')">정답 확인</button>
+        <div class="answer" id="s101">융해. 고체에서 액체로 변한다.</div>
+      </div>
+      <div class="practice">
+        <b>문제 2.</b> 수증기가 물방울로 변하는 현상은?
+        <br><button onclick="toggleAnswer('s102')">정답 확인</button>
+        <div class="answer" id="s102">액화. 기체에서 액체로 변한다.</div>
+      </div>
+    </section>
+
+    <!-- 과학 2 -->
+    <section class="page" id="sci2">
+      <h1 class="page-title">과학 05. 힘의 작용</h1>
+      <div class="subtitle">힘은 물체의 운동과 모양을 어떻게 바꿀까?</div>
+
+      <h2>1. 힘이란?</h2>
+      <div class="definition">
+        힘은 물체의 운동 상태나 모양을 변화시키는 원인이다.
+        힘은 크기와 방향을 가지는 물리량이다.
+      </div>
+
+      <h2>2. 힘의 효과</h2>
+      <ul>
+        <li>정지한 물체를 움직이게 할 수 있다.</li>
+        <li>움직이는 물체의 속력을 바꿀 수 있다.</li>
+        <li>물체의 운동 방향을 바꿀 수 있다.</li>
+        <li>물체의 모양을 변형시킬 수 있다.</li>
+      </ul>
+
+      <div class="illustration">
+        <svg viewBox="0 0 620 200" width="620" role="img" aria-label="물체에 작용하는 힘">
+          <rect x="250" y="70" width="110" height="70" rx="7" fill="#dceafa" stroke="#54769b" stroke-width="2"/>
+          <path d="M250 105 H130 M138 97 L130 105 L138 113" fill="none" stroke="#d66c6c" stroke-width="4"/>
+          <path d="M360 105 H490 M482 97 L490 105 L482 113" fill="none" stroke="#638d76" stroke-width="4"/>
+          <text x="185" y="85" text-anchor="middle" font-size="14" fill="#d66c6c">왼쪽 힘</text>
+          <text x="430" y="85" text-anchor="middle" font-size="14" fill="#638d76">오른쪽 힘</text>
+          <text x="305" y="110" text-anchor="middle" font-size="15">물체</text>
+        </svg>
+      </div>
+
+      <h2>3. 힘의 단위</h2>
+      <div class="formula">힘의 단위: 뉴턴(N)</div>
+      <p>힘은 크기와 방향을 함께 나타내야 한다. 화살표의 길이는 힘의 크기, 화살표의 방향은 힘이 작용하는 방향을 나타낼 수 있다.</p>
+
+      <h2>4. 중력과 마찰력</h2>
+      <table>
+        <tr><th>힘</th><th>설명</th><th>예시</th></tr>
+        <tr><td>중력</td><td>지구가 물체를 끌어당기는 힘</td><td>공이 아래로 떨어짐</td></tr>
+        <tr><td>마찰력</td><td>접촉한 두 물체의 상대적인 운동을 방해하는 힘</td><td>바닥에서 미끄러지는 물체가 느려짐</td></tr>
+        <tr><td>탄성력</td><td>변형된 물체가 원래 모양으로 돌아가려는 힘</td><td>늘어난 용수철</td></tr>
+        <tr><td>자기력</td><td>자석 사이에 작용하는 힘</td><td>자석의 끌어당김과 밀어냄</td></tr>
+      </table>
+
+      <h2>5. 힘의 합력</h2>
+      <div class="example">
+        같은 방향으로 5N과 3N의 힘이 작용하면 합력은 8N이다.<br>
+        반대 방향으로 5N과 3N의 힘이 작용하면 합력의 크기는 2N이고, 방향은 큰 힘인 5N 쪽이다.
+      </div>
+
+      <h2>연습문제</h2>
+      <div class="practice">
+        <b>문제 1.</b> 같은 방향으로 4N과 6N의 힘이 작용한다. 합력은?
+        <br><button onclick="toggleAnswer('s201')">정답 확인</button>
+        <div class="answer" id="s201">10N. 같은 방향이므로 더한다.</div>
+      </div>
+      <div class="practice">
+        <b>문제 2.</b> 반대 방향으로 9N과 5N의 힘이 작용한다. 합력의 크기는?
+        <br><button onclick="toggleAnswer('s202')">정답 확인</button>
+        <div class="answer" id="s202">4N. 큰 힘인 9N 방향으로 작용한다.</div>
+      </div>
+    </section>
+
+    <!-- 과학 3 -->
+    <section class="page" id="sci3">
+      <h1 class="page-title">과학 06. 기체의 성질</h1>
+      <div class="subtitle">기체의 압력, 부피, 온도 사이의 관계를 알아보자.</div>
+
+      <h2>1. 기체의 특징</h2>
+      <ul>
+        <li>기체는 담긴 용기의 모양과 부피에 맞게 퍼진다.</li>
+        <li>기체 입자는 끊임없이 불규칙하게 운동한다.</li>
+        <li>기체 입자가 용기 벽에 충돌하면 압력이 생긴다.</li>
+        <li>기체는 쉽게 압축할 수 있다.</li>
+      </ul>
+
+      <div class="illustration">
+        <svg viewBox="0 0 600 220" width="600" role="img" aria-label="기체 입자와 용기 벽">
+          <rect x="140" y="25" width="320" height="160" rx="8" fill="#f4f7fb" stroke="#54769b" stroke-width="3"/>
+          <g fill="#d18b5b">
+            <circle cx="180" cy="65" r="7"/><circle cx="250" cy="95" r="7"/><circle cx="320" cy="50" r="7"/>
+            <circle cx="405" cy="130" r="7"/><circle cx="210" cy="150" r="7"/><circle cx="365" cy="85" r="7"/>
+            <circle cx="285" cy="155" r="7"/><circle cx="430" cy="55" r="7"/>
+          </g>
+          <g stroke="#638d76" stroke-width="2" fill="none">
+            <path d="M180 65 l25 -10 M205 55 l-7 -1 M205 55 l-3 7"/>
+            <path d="M250 95 l-15 -20 M235 75 l1 7 M235 75 l7 2"/>
+            <path d="M365 85 l25 12 M390 97 l-7 -1 M390 97 l-2 -7"/>
+          </g>
+          <text x="300" y="210" text-anchor="middle" font-size="13">기체 입자가 용기 벽에 충돌한다.</text>
+        </svg>
+      </div>
+
+      <h2>2. 압력</h2>
+      <div class="definition">
+        압력은 단위 면적에 수직으로 작용하는 힘의 크기이다.
+      </div>
+      <div class="formula">압력 = 힘 ÷ 면적</div>
+      <p>같은 힘이라면 작용하는 면적이 작을수록 압력이 커진다.</p>
+
+      <h2>3. 온도와 부피</h2>
+      <p>압력이 일정할 때 기체의 온도가 높아지면 기체의 부피가 커지는 경향이 있다.</p>
+      <p>온도가 낮아지면 부피가 작아지는 경향이 있다.</p>
+
+      <h2>4. 압력과 부피</h2>
+      <p>온도가 일정할 때 기체의 압력이 커지면 부피는 작아진다. 이를 보일 법칙이라고 한다.</p>
+      <div class="formula">P₁V₁ = P₂V₂ (온도가 일정할 때)</div>
+
+      <div class="note">
+        기체 법칙을 계산할 때 온도는 일반적으로 절대온도(K)를 사용한다.
+        섭씨온도(°C)를 그대로 비례식에 넣으면 안 된다.
+      </div>
+
+      <h2>연습문제</h2>
+      <div class="practice">
+        <b>문제 1.</b> 온도가 일정한 기체를 압축하면 부피는 어떻게 되는가?
+        <br><button onclick="toggleAnswer('s301')">정답 확인</button>
+        <div class="answer" id="s301">부피가 작아진다. 압력과 부피는 반비례한다.</div>
+      </div>
+      <div class="practice">
+        <b>문제 2.</b> 기체 입자가 용기 벽에 충돌하여 생기는 물리량은?
+        <br><button onclick="toggleAnswer('s302')">정답 확인</button>
+        <div class="answer" id="s302">압력이다.</div>
+      </div>
+    </section>
+
+    <!-- 실험실 -->
+    <section class="page" id="lab">
+      <h1 class="page-title">🔬 공식 증명 실험실</h1>
+      <div class="subtitle">공식을 외우는 대신, 직접 움직이고 계산하며 원리를 확인하는 공간.</div>
+
+      <div class="lab-intro">
+        <b>실험실 이용 방법</b><br>
+        슬라이더를 움직이거나 값을 바꾸면 결과가 즉시 계산된다.
+        각 실험에는 관찰 결과뿐 아니라 수식이 성립하는 이유를 단계별로 정리했다.
+      </div>
+
+      <!-- 실험 1 -->
+      <div class="lab-section">
+        <h2>실험 1. 원주율 π는 왜 약 3.14일까?</h2>
+        <p>원의 크기를 바꾸면서 원주와 지름의 비율을 직접 확인해 보자.</p>
+
+        <div class="lab-control">
+          <label for="radius">원의 반지름: <b id="radiusText">5</b> cm</label>
+          <input id="radius" type="range" min="1" max="20" step="1" value="5" oninput="updateCircle()">
+          <div class="flex-row">
+            <div class="result">반지름: <b id="rVal">5</b> cm</div>
+            <div class="result">지름: <b id="dVal">10</b> cm</div>
+            <div class="result">원주: <b id="cVal">31.42</b> cm</div>
+          </div>
+          <div class="illustration">
+            <svg id="circleSvg" viewBox="0 0 400 250" width="400" role="img" aria-label="반지름에 따른 원의 크기">
+              <circle id="circleShape" cx="200" cy="120" r="50" fill="#eaf2fa" stroke="#54769b" stroke-width="3"/>
+              <line id="circleRadius" x1="200" y1="120" x2="250" y2="120" stroke="#d66c6c" stroke-width="3"/>
+              <circle cx="200" cy="120" r="3" fill="#303b50"/>
+              <text x="225" y="110" fill="#d66c6c" font-size="13">r</text>
+            </svg>
+          </div>
+          <div class="result">
+            <div>원주 ÷ 지름 = <span class="big-number" id="piResult">3.1416</span></div>
+            <div class="small">계산값은 소수점 넷째 자리까지 표시한다.</div>
+          </div>
+        </div>
+
+        <h3>증명에 가까워지는 관찰 과정</h3>
+        <div class="proof-step">
+          ① 원의 반지름이 5cm라면 지름은 10cm이다.
+        </div>
+        <div class="proof-step">
+          ② 원의 둘레는 약 31.4159cm이다.
+        </div>
+        <div class="proof-step">
+          ③ 원주를 지름으로 나누면 약 3.14159가 나온다.
+        </div>
+        <div class="proof-step">
+          ④ 반지름을 바꾸어도 원주 ÷ 지름의 값은 변하지 않는다.
+        </div>
+        <div class="formula">π = 원주 ÷ 지름</div>
+        <div class="warning">
+          이 실험은 원주율이 일정한 값임을 수치로 관찰하는 실험이다.
+          측정과 계산만으로 π가 정확히 3.14라고 증명하는 것은 아니다.
+          π는 3.14가 아니라 3.141592…로 이어지는 무리수이다.
+        </div>
+      </div>
+
+      <!-- 실험 2 -->
+      <div class="lab-section">
+        <h2>실험 2. 삼각형의 내각의 합은 왜 180°일까?</h2>
+        <p>삼각형의 세 각을 바꾸어도 합이 일정한지 확인해 보자.</p>
+
+        <div class="lab-control">
+          <label for="angleA">각 A: <b id="angleAText">60</b>°</label>
+          <input id="angleA" type="range" min="10" max="150" value="60" oninput="updateTriangle()">
+          <label for="angleB">각 B: <b id="angleBText">60</b>°</label>
+          <input id="angleB" type="range" min="10" max="150" value="60" oninput="updateTriangle()">
+          <div class="result">
+            각 C: <b id="angleCText">60</b>°<br>
+            세 각의 합: <span class="big-number" id="angleSum">180°</span>
+          </div>
+          <div class="illustration">
+            <svg viewBox="0 0 400 230" width="400" role="img" aria-label="삼각형의 세 내각">
+              <polygon id="triangleShape" points="200,30 70,190 330,190" fill="#eaf2fa" stroke="#54769b" stroke-width="3"/>
+              <text id="triLabelA" x="65" y="205" font-size="14">A</text>
+              <text id="triLabelB" x="330" y="205" font-size="14">B</text>
+              <text id="triLabelC" x="200" y="22" font-size="14">C</text>
+            </svg>
+          </div>
+        </div>
+
+        <h3>수학적 증명</h3>
+        <div class="proof-step">
+          ① 삼각형 ABC를 그린다.
+        </div>
+        <div class="proof-step">
+          ② 꼭짓점 C를 지나 변 AB와 평행한 직선을 그린다.
+        </div>
+        <div class="proof-step">
+          ③ 평행선의 엇각 성질에 의해 ∠A와 같은 각, ∠B와 같은 각이 C 주변에 생긴다.
+        </div>
+        <div class="proof-step">
+          ④ 이 세 각은 한 직선 위에 놓이므로 합이 180°이다.
+        </div>
+        <div class="formula">∠A + ∠B + ∠C = 180°</div>
+      </div>
+
+      <!-- 실험 3 -->
+      <div class="lab-section">
+        <h2>실험 3. 다각형의 내각의 합 공식</h2>
+        <p>변의 개수를 바꾸면서 내각의 합이 어떻게 변하는지 확인하자.</p>
+
+        <div class="lab-control">
+          <label for="polygonN">변의 개수: <b id="polygonNText">5</b>개</label>
+          <input id="polygonN" type="range" min="3" max="12" value="5" oninput="updatePolygon()">
+          <div class="result">
+            삼각형으로 나뉘는 개수: <b id="triangleCount">3</b>개<br>
+            내각의 합: <span class="big-number" id="polygonSum">540°</span>
+          </div>
+          <div class="illustration">
+            <svg id="polygonSvg" viewBox="0 0 400 280" width="400" role="img" aria-label="다각형 그림"></svg>
+          </div>
+        </div>
+
+        <h3>공식 증명</h3>
+        <div class="proof-step">
+          ① n각형의 한 꼭짓점에서 대각선을 그어 삼각형으로 나눈다.
+        </div>
+        <div class="proof-step">
+          ② 삼각형은 n각형에서 항상 2개 적은 n-2개가 만들어진다.
+        </div>
+        <div class="proof-step">
+          ③ 삼각형 하나의 내각의 합은 180°이다.
+        </div>
+        <div class="formula">n각형의 내각의 합 = (n - 2) × 180°</div>
+      </div>
+
+      <!-- 실험 4 -->
+      <div class="lab-section">
+        <h2>실험 4. 정다면체는 왜 다섯 종류뿐일까?</h2>
+        <p>정다각형의 내각과 한 꼭짓점에 모이는 면의 수를 직접 바꾸어 보자.</p>
+
+        <div class="lab-control">
+          <label for="faceN">한 면의 정다각형 변의 수 n</label>
+          <select id="faceN" onchange="updatePolyhedron()">
+            <option value="3">정삼각형 (n=3)</option>
+            <option value="4">정사각형 (n=4)</option>
+            <option value="5">정오각형 (n=5)</option>
+            <option value="6">정육각형 (n=6)</option>
+            <option value="7">정칠각형 (n=7)</option>
+          </select>
+
+          <label for="faceM">한 꼭짓점에 모이는 면의 개수 m</label>
+          <input id="faceM" type="range" min="3" max="7" value="3" oninput="updatePolyhedron()">
+
+          <div class="result">
+            한 면의 내각: <b id="faceAngle">60°</b><br>
+            한 꼭짓점에서 모이는 각의 합:
+            <span class="big-number" id="vertexAngleSum">180°</span>
+          </div>
+          <div id="polyStatus" class="result"></div>
+        </div>
+
+        <h3>가능한 경우를 정리하면</h3>
+        <table>
+          <tr><th>n</th><th>정다각형</th><th>내각</th><th>가능한 m</th></tr>
+          <tr><td>3</td><td>정삼각형</td><td>60°</td><td>3, 4, 5</td></tr>
+          <tr><td>4</td><td>정사각형</td><td>90°</td><td>3</td></tr>
+          <tr><td>5</td><td>정오각형</td><td>108°</td><td>3</td></tr>
+          <tr><td>6 이상</td><td>정육각형 이상</td><td>120° 이상</td><td>불가능</td></tr>
+        </table>
+
+        <div class="proof-step">
+          정다면체가 되려면 한 꼭짓점에 모이는 면의 개수는 3개 이상이어야 하고,
+          그 각의 합은 360°보다 작아야 한다.
+        </div>
+        <div class="formula">m × (n - 2) × 180° / n &lt; 360°</div>
+        <div class="proof-step">
+          이 조건을 만족하는 조합은 (3,3), (3,4), (3,5), (4,3), (5,3) 다섯 가지뿐이다.
+          이 다섯 조합은 실제로 각각 볼록 정다면체를 만든다.
+        </div>
+      </div>
+
+      <!-- 실험 5 -->
+      <div class="lab-section">
+        <h2>실험 5. 오일러 공식으로 정다면체의 개수 구하기</h2>
+        <p>면의 모양과 한 꼭짓점에 모이는 면의 개수를 선택하면 모서리, 면, 꼭짓점의 수를 계산한다.</p>
+
+        <div class="lab-control">
+          <label for="eulerN">n: 면을 이루는 정다각형의 변 수</label>
+          <select id="eulerN" onchange="updateEuler()">
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+
+          <label for="eulerM">m: 한 꼭짓점에 모이는 면의 수</label>
+          <select id="eulerM" onchange="updateEuler()">
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+
+          <div id="eulerResult" class="result"></div>
+        </div>
+
+        <h3>공식 유도</h3>
+        <div class="proof-step">
+          면에서 모서리를 세면 각 모서리를 두 번씩 세므로 nF = 2E이다.
+        </div>
+        <div class="proof-step">
+          꼭짓점에서 모서리를 세면 각 모서리를 두 번씩 세므로 mV = 2E이다.
+        </div>
+        <div class="proof-step">
+          볼록다면체의 오일러 공식은 V - E + F = 2이다.
+        </div>
+        <div class="formula">F = 2E/n, V = 2E/m</div>
+        <div class="formula">2E/m - E + 2E/n = 2</div>
+        <div class="formula">E = 2 ÷ (2/m + 2/n - 1)</div>
+        <div class="note">
+          계산 결과가 양의 정수이고 앞의 꼭짓점 각 조건도 만족하는 경우에만 정다면체 후보가 된다.
+          이 공식은 볼록다면체에 대한 오일러 관계를 이용한다.
+        </div>
+      </div>
+
+      <!-- 실험 6 -->
+      <div class="lab-section">
+        <h2>실험 6. 힘의 합력</h2>
+        <p>두 힘의 크기와 방향을 바꾸어 합력을 관찰하자.</p>
+
+        <div class="lab-control">
+          <label for="forceA">첫 번째 힘: <b id="forceAText">5</b>N</label>
+          <input id="forceA" type="range" min="0" max="20" value="5" oninput="updateForce()">
+          <label for="forceB">두 번째 힘: <b id="forceBText">3</b>N</label>
+          <input id="forceB" type="range" min="0" max="20" value="3" oninput="updateForce()">
+          <label for="forceDirection">두 번째 힘의 방향</label>
+          <select id="forceDirection" onchange="updateForce()">
+            <option value="same">첫 번째 힘과 같은 방향</option>
+            <option value="opposite">첫 번째 힘과 반대 방향</option>
+          </select>
+          <div class="result" id="forceResult"></div>
+          <div class="illustration">
+            <svg viewBox="0 0 400 150" width="400" role="img" aria-label="힘의 합력 화살표">
+              <line x1="200" y1="75" x2="350" y2="75" stroke="#dce2e8" stroke-width="2"/>
+              <line id="forceArrow" x1="200" y1="75" x2="260" y2="75" stroke="#d66c6c" stroke-width="5"/>
+              <path id="forceArrowHead" d="M260 75 l-12 -7 v14 z" fill="#d66c6c"/>
+              <text x="200" y="110" text-anchor="middle" font-size="12">시작점</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- 실험 7 -->
+      <div class="lab-section">
+        <h2>실험 7. 보일 법칙: 압력과 부피</h2>
+        <p>온도가 일정할 때 압력을 높이면 기체의 부피가 어떻게 되는지 확인하자.</p>
+
+        <div class="lab-control">
+          <label for="gasPressure">압력 P: <b id="gasPressureText">1</b>기압</label>
+          <input id="gasPressure" type="range" min="1" max="5" step="0.5" value="1" oninput="updateGas()">
+          <div class="result">
+            처음 부피: 1L<br>
+            현재 압력: <b id="gasP">1</b>기압<br>
+            현재 부피: <span class="big-number" id="gasV">1.00</span>L
+          </div>
+          <div class="illustration">
+            <svg viewBox="0 0 400 200" width="400" role="img" aria-label="압력에 따라 변하는 기체 부피">
+              <rect x="110" y="20" width="180" height="150" rx="5" fill="#f4f7fb" stroke="#54769b" stroke-width="3"/>
+              <rect id="gasFill" x="112" y="90" width="176" height="78" fill="#dceafa" opacity=".8"/>
+              <g id="gasDots" fill="#d18b5b">
+                <circle cx="140" cy="110" r="5"/><circle cx="175" cy="130" r="5"/><circle cx="220" cy="105" r="5"/>
+                <circle cx="255" cy="145" r="5"/><circle cx="150" cy="150" r="5"/><circle cx="240" cy="120" r="5"/>
+              </g>
+            </svg>
+          </div>
+        </div>
+
+        <h3>공식 증명과 적용</h3>
+        <div class="proof-step">
+          온도가 일정한 일정량의 기체에서는 압력과 부피가 반비례한다.
+        </div>
+        <div class="formula">P × V = 일정</div>
+        <div class="proof-step">
+          처음 압력과 부피를 P₁, V₁이라고 하고, 나중 값을 P₂, V₂라고 하면
+        </div>
+        <div class="formula">P₁V₁ = P₂V₂</div>
+        <div class="warning">
+          이 관계는 온도가 일정하고 기체의 양이 변하지 않는 조건에서 성립하는 이상기체의 근사적 관계이다.
+        </div>
+      </div>
+
+      <div class="lab-intro">
+        <b>실험실 사용 팁</b><br>
+        공식을 보기 전에 먼저 값을 바꾸어 결과를 예상해 보자.
+        그다음 증명 과정을 읽으면 공식을 훨씬 오래 기억할 수 있다.
+      </div>
+    </section>
+
+  </main>
 </div>
 
 <footer>
-MY STUDY NOTE · MATHEMATICS & ENGLISH
+  나만의 공부 노트 · 개념을 이해하고, 직접 실험하고, 스스로 증명하기
 </footer>
 
 <script>
-function showChapter(id, button){
-    // 모든 단원 숨기기
-    document.querySelectorAll('.chapter').forEach(chapter=>{
-        chapter.classList.remove('active');
-    });
+"use strict";
 
-    // 선택한 단원 표시
-    const selected = document.getElementById(id);
-    if(!selected) return;
-    selected.classList.add('active');
+/* ---------------------------
+   페이지 및 메뉴 전환
+---------------------------- */
 
-    // 메뉴 버튼 상태 변경
-    document.querySelectorAll('.nav-btn').forEach(btn=>{
-        btn.classList.remove('active');
-    });
+const pageSubjects = {
+  math: ["math1", "math2", "math3", "math4", "math5"],
+  english: ["eng1", "eng2", "eng3", "eng4", "eng5"],
+  science: ["sci1", "sci2", "sci3"],
+  lab: ["lab"]
+};
 
-    if(button){
-        button.classList.add('active');
-    }
+function showPage(id) {
+  const target = document.getElementById(id);
+  if (!target) return;
 
-    // 단원 변경 시 페이지 상단으로 이동
-    window.scrollTo({top:0, behavior:'smooth'});
+  document.querySelectorAll(".page").forEach(page => {
+    page.classList.toggle("active", page.id === id);
+  });
+
+  document.querySelectorAll(".side-btn").forEach(button => {
+    button.classList.toggle("active", button.dataset.page === id);
+  });
+
+  const subject = Object.keys(pageSubjects).find(key =>
+    pageSubjects[key].includes(id)
+  );
+
+  document.querySelectorAll(".top-nav button").forEach(button => {
+    button.classList.toggle("active", button.dataset.subject === subject);
+  });
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
+
+function selectSubject(subject) {
+  const firstPage = pageSubjects[subject]?.[0];
+  if (firstPage) showPage(firstPage);
+}
+
+function toggleAnswer(id) {
+  const element = document.getElementById(id);
+  if (element) element.classList.toggle("show");
+}
+
+/* ---------------------------
+   원주율 실험
+---------------------------- */
+
+function updateCircle() {
+  const radius = Number(document.getElementById("radius").value);
+  const diameter = radius * 2;
+  const circumference = 2 * Math.PI * radius;
+  const piValue = circumference / diameter;
+
+  document.getElementById("radiusText").textContent = radius;
+  document.getElementById("rVal").textContent = radius.toFixed(0);
+  document.getElementById("dVal").textContent = diameter.toFixed(0);
+  document.getElementById("cVal").textContent = circumference.toFixed(2);
+  document.getElementById("piResult").textContent = piValue.toFixed(4);
+
+  const scale = radius * 5;
+  document.getElementById("circleShape").setAttribute("r", scale);
+  document.getElementById("circleRadius").setAttribute("x2", 200 + scale);
+  document.getElementById("circleRadius").setAttribute("y2", 120);
+}
+
+/* ---------------------------
+   삼각형 내각 실험
+---------------------------- */
+
+function updateTriangle() {
+  const a = Number(document.getElementById("angleA").value);
+  const b = Number(document.getElementById("angleB").value);
+  const c = 180 - a - b;
+
+  document.getElementById("angleAText").textContent = a;
+  document.getElementById("angleBText").textContent = b;
+  document.getElementById("angleCText").textContent = c;
+
+  if (c <= 0) {
+    document.getElementById("angleSum").textContent = "삼각형을 만들 수 없음";
+    document.getElementById("triangleShape").setAttribute("points", "200,30 70,190 330,190");
+    return;
+  }
+
+  document.getElementById("angleSum").textContent = `${a + b + c}°`;
+
+  const A = a * Math.PI / 180;
+  const B = b * Math.PI / 180;
+  const C = c * Math.PI / 180;
+
+  const side = 180;
+  const sinC = Math.sin(C);
+
+  if (Math.abs(sinC) < 0.000001) return;
+
+  const sideA = side * Math.sin(A) / sinC;
+  const sideB = side * Math.sin(B) / sinC;
+
+  const xA = 200 - sideA * Math.cos(B);
+  const yA = 190 - sideA * Math.sin(B);
+  const xB = 200 + sideB * Math.cos(A);
+  const yB = 190 - sideB * Math.sin(A);
+
+  const points = `${xA},${yA} ${xB},${yB} 200,190`;
+  document.getElementById("triangleShape").setAttribute("points", points);
+}
+
+/* ---------------------------
+   다각형 내각 실험
+---------------------------- */
+
+function updatePolygon() {
+  const n = Number(document.getElementById("polygonN").value);
+  const triangles = n - 2;
+  const sum = triangles * 180;
+
+  document.getElementById("polygonNText").textContent = n;
+  document.getElementById("triangleCount").textContent = triangles;
+  document.getElementById("polygonSum").textContent = `${sum}°`;
+
+  const cx = 200;
+  const cy = 135;
+  const radius = 100;
+  const points = [];
+
+  for (let i = 0; i < n; i++) {
+    const angle = -Math.PI / 2 + (2 * Math.PI * i / n);
+    const x = cx + radius * Math.cos(angle);
+    const y = cy + radius * Math.sin(angle);
+    points.push(`${x.toFixed(2)},${y.toFixed(2)}`);
+  }
+
+  const svg = document.getElementById("polygonSvg");
+  svg.innerHTML = `
+    <polygon points="${points.join(" ")}"
+      fill="#eaf2fa" stroke="#54769b" stroke-width="3"/>
+    <circle cx="${cx}" cy="${cy}" r="4" fill="#d66c6c"/>
+  `;
+
+  const polygonPoints = points.map(point => point.split(",").map(Number));
+  for (let i = 1; i < n - 1; i++) {
+    const p1 = polygonPoints[0];
+    const p2 = polygonPoints[i + 1];
+    const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+    line.setAttribute("x1", p1[0]);
+    line.setAttribute("y1", p1[1]);
+    line.setAttribute("x2", p2[0]);
+    line.setAttribute("y2", p2[1]);
+    line.setAttribute("stroke", "#d66c6c");
+    line.setAttribute("stroke-width", "1.5");
+    line.setAttribute("stroke-dasharray", "5 4");
+    svg.appendChild(line);
+  }
+}
+
+/* ---------------------------
+   정다면체 각도 조건 실험
+---------------------------- */
+
+function updatePolyhedron() {
+  const n = Number(document.getElementById("faceN").value);
+  const m = Number(document.getElementById("faceM").value);
+  const angle = (n - 2) * 180 / n;
+  const total = angle * m;
+  const possible = total < 360 && m >= 3;
+
+  document.getElementById("faceM").max = 7;
+  document.getElementById("faceAngle").textContent = `${angle.toFixed(2)}°`;
+  document.getElementById("vertexAngleSum").textContent = `${total.toFixed(2)}°`;
+
+  const status = document.getElementById("polyStatus");
+
+  if (possible) {
+    status.innerHTML =
+      `<b>각도 조건 통과</b><br>` +
+      `${n}각형의 면 ${m}개가 한 꼭짓점에 모일 때 각의 합은 360°보다 작다.<br>` +
+      `이 조합은 정다면체의 가능한 후보이다.`;
+  } else {
+    status.innerHTML =
+      `<b>불가능</b><br>` +
+      `한 꼭짓점에서 각의 합이 360° 이상이므로 볼록한 입체로 접을 수 없다.`;
+  }
+}
+
+/* ---------------------------
+   오일러 공식 계산 실험
+---------------------------- */
+
+function updateEuler() {
+  const n = Number(document.getElementById("eulerN").value);
+  const m = Number(document.getElementById("eulerM").value);
+
+  const denominator = (2 / m) + (2 / n) - 1;
+  const result = document.getElementById("eulerResult");
+
+  if (denominator <= 0) {
+    result.innerHTML = "이 조합은 양의 모서리 개수를 만들 수 없다.";
+    return;
+  }
+
+  const E = 2 / denominator;
+  const F = 2 * E / n;
+  const V = 2 * E / m;
+
+  const isInteger = value =>
+    Number.isFinite(value) && Math.abs(value - Math.round(value)) < 1e-8;
+
+  if (![E, F, V].every(isInteger)) {
+    result.innerHTML =
+      `계산 결과가 정수가 아니다.<br>` +
+      `E = ${E.toFixed(3)}, F = ${F.toFixed(3)}, V = ${V.toFixed(3)}<br>` +
+      `정다면체의 개수로 성립하지 않는 조합이다.`;
+    return;
+  }
+
+  const e = Math.round(E);
+  const f = Math.round(F);
+  const v = Math.round(V);
+
+  result.innerHTML =
+    `<b>계산 결과</b><br>` +
+    `모서리 E = ${e}<br>` +
+    `면 F = ${f}<br>` +
+    `꼭짓점 V = ${v}<br>` +
+    `<hr>` +
+    `오일러 공식 확인: ${v} - ${e} + ${f} = ${v - e + f}<br>` +
+    `<b>${v - e + f === 2 ? "오일러 공식 성립" : "오일러 공식 불성립"}</b>`;
+}
+
+/* ---------------------------
+   힘의 합력 실험
+---------------------------- */
+
+function updateForce() {
+  const a = Number(document.getElementById("forceA").value);
+  const b = Number(document.getElementById("forceB").value);
+  const direction = document.getElementById("forceDirection").value;
+
+  document.getElementById("forceAText").textContent = a;
+  document.getElementById("forceBText").textContent = b;
+
+  const signedB = direction === "same" ? b : -b;
+  const net = a + signedB;
+  const magnitude = Math.abs(net);
+
+  let directionText = "힘이 평형을 이룬다.";
+  if (net > 0) directionText = "첫 번째 힘 방향으로 작용한다.";
+  if (net < 0) directionText = "두 번째 힘 방향으로 작용한다.";
+
+  document.getElementById("forceResult").innerHTML =
+    `합력의 크기: <b>${magnitude}N</b><br>${directionText}`;
+
+  const arrow = document.getElementById("forceArrow");
+  const head = document.getElementById("forceArrowHead");
+  const visualLength = Math.min(120, magnitude * 6);
+  const endX = net >= 0 ? 200 + visualLength : 200 - visualLength;
+
+  arrow.setAttribute("x1", 200);
+  arrow.setAttribute("x2", endX);
+  arrow.setAttribute("stroke", net === 0 ? "#9aa4af" : "#d66c6c");
+
+  if (net >= 0) {
+    head.setAttribute("d", `M${endX} 75 l-12 -7 v14 z`);
+  } else {
+    head.setAttribute("d", `M${endX} 75 l12 -7 v14 z`);
+  }
+  head.setAttribute("fill", net === 0 ? "#9aa4af" : "#d66c6c");
+}
+
+/* ---------------------------
+   보일 법칙 실험
+---------------------------- */
+
+function updateGas() {
+  const pressure = Number(document.getElementById("gasPressure").value);
+  const initialPV = 1;
+  const volume = initialPV / pressure;
+
+  document.getElementById("gasPressureText").textContent = pressure.toFixed(1);
+  document.getElementById("gasP").textContent = pressure.toFixed(1);
+  document.getElementById("gasV").textContent = volume.toFixed(2);
+
+  const height = 150 * volume;
+  const fillHeight = Math.max(15, Math.min(145, height));
+
+  document.getElementById("gasFill").setAttribute("y", 170 - fillHeight);
+  document.getElementById("gasFill").setAttribute("height", fillHeight);
+}
+
+/* ---------------------------
+   초기화
+---------------------------- */
+
+document.addEventListener("DOMContentLoaded", () => {
+  updateCircle();
+  updateTriangle();
+  updatePolygon();
+  updatePolyhedron();
+  updateEuler();
+  updateForce();
+  updateGas();
+});
 </script>
 
 </body>
