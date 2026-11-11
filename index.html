@@ -1,0 +1,1275 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>나의 공부 필기노트</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&family=Nanum+Pen+Script&display=swap');
+
+*{box-sizing:border-box}
+body{
+ margin:0;background:#e9e6dc;color:#303d50;
+ font-family:'Nanum Gothic',sans-serif;
+}
+header{
+ background:#fffdf5;padding:18px 6%;
+ display:flex;justify-content:space-between;align-items:center;
+ border-bottom:1px solid #ddd;
+}
+.logo{font:40px 'Nanum Pen Script';color:#355b91}
+.header-small{font-size:12px;color:#999}
+.layout{
+ max-width:1350px;margin:30px auto;padding:0 20px;
+ display:grid;grid-template-columns:245px 1fr;gap:24px;
+}
+.sidebar{
+ background:#fffdf5;padding:20px 15px;height:fit-content;
+ position:sticky;top:15px;border-radius:5px;
+ box-shadow:2px 3px 10px #0000000b;
+}
+.sidebar h3{font:28px 'Nanum Pen Script';color:#315d98}
+.subject{
+ padding:12px;background:#eaf0f8;color:#315d98;
+ font-weight:bold;margin:15px 0 8px;border-radius:5px;
+}
+.nav-btn{
+ display:block;width:100%;text-align:left;
+ padding:11px 10px;margin:4px 0;border:0;
+ background:transparent;color:#637083;cursor:pointer;
+ border-radius:5px;font-size:13px;
+}
+.nav-btn:hover,.nav-btn.active{
+ background:#eaf0f8;color:#315d98;font-weight:bold;
+}
+.notebook{
+ background-color:#fffdf5;
+ background-image:linear-gradient(#dce5ed 1px,transparent 1px);
+ background-size:100% 34px;
+ padding:40px 55px 70px 75px;min-height:900px;
+ position:relative;box-shadow:3px 5px 18px #00000012;
+}
+.notebook:before{
+ content:"";position:absolute;left:48px;top:0;bottom:0;
+ width:1px;background:#e8aaaa;
+}
+.chapter{display:none;line-height:2.05}
+.chapter.active{display:block}
+.chapter-title{
+ font:44px 'Nanum Pen Script';color:#315d98;
+ border-bottom:2px solid #7395bd;padding-bottom:10px;
+ margin-bottom:20px;
+}
+.subtitle{font-size:13px;color:#999;margin-bottom:25px}
+h2{font-size:21px;color:#315d98;margin-top:35px;margin-bottom:8px}
+h3{font-size:16px;color:#b36c59;margin-top:20px}
+p{margin:7px 0}
+ul,ol{padding-left:25px}
+.highlight{
+ background:linear-gradient(transparent 55%,#f9e9a8 55%);
+ font-weight:bold;
+}
+.note{
+ border-left:4px solid #7299c6;background:#edf3fa;
+ padding:12px 17px;margin:18px 0;border-radius:3px;
+}
+.warning{
+ border-left:4px solid #d68c83;background:#fff0eb;
+ padding:12px 17px;margin:18px 0;
+}
+.formula{
+ text-align:center;background:#f5f2e8;padding:12px;
+ margin:15px 0;font-size:18px;font-weight:bold;
+ color:#355b91;border-radius:4px;
+}
+.example{
+ border:1px dashed #a8b8cb;padding:15px;
+ margin:18px 0;background:#ffffffa8;
+}
+.example-title{color:#c17a55;font-weight:bold}
+.diagram{
+ background:#fff;border:1px solid #e7e3d9;
+ padding:15px;margin:18px 0;text-align:center;
+ border-radius:5px;
+}
+.diagram svg{max-width:100%;height:auto}
+.diagram text{font-family:'Nanum Gothic',sans-serif}
+.diagram-caption{font-size:12px;color:#999;margin-top:5px}
+.exercise{
+ background:#fffefa;border:1px solid #e5dfd2;
+ padding:16px;margin:16px 0;border-radius:5px;
+}
+.exercise-title{font-weight:bold;color:#315d98}
+details{
+ margin-top:10px;border-top:1px dashed #ddd;padding-top:8px;
+}
+summary{cursor:pointer;color:#b36c59;font-size:13px;font-weight:bold}
+.answer{font-size:14px;color:#45664e;padding:8px 0}
+.tag{
+ display:inline-block;padding:3px 8px;background:#edf3fa;
+ color:#315d98;border-radius:4px;font-size:11px;
+}
+footer{text-align:center;color:#aaa;padding:30px;font-size:12px}
+
+@media(max-width:750px){
+ .layout{grid-template-columns:1fr;margin-top:15px}
+ .sidebar{position:static}
+ .notebook{padding:30px 22px 50px 45px}
+ .notebook:before{left:28px}
+ .chapter-title{font-size:35px}
+ header{padding:15px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+ <div class="logo">나의 공부 필기노트 ✎</div>
+ <div class="header-small">MY STUDY NOTE</div>
+</header>
+
+<div class="layout">
+
+<aside class="sidebar">
+ <h3>📚 공부 목차</h3>
+
+ <div class="subject">📐 수학</div>
+ <button class="nav-btn active" onclick="showChapter('math1',this)">01. 기본도형</button>
+ <button class="nav-btn" onclick="showChapter('math2',this)">02. 각의 관계</button>
+ <button class="nav-btn" onclick="showChapter('math3',this)">03. 평면도형</button>
+ <button class="nav-btn" onclick="showChapter('math4',this)">04. 입체도형</button>
+
+ <div class="subject">🔤 영어</div>
+ <button class="nav-btn" onclick="showChapter('eng1',this)">01. There + be동사</button>
+ <button class="nav-btn" onclick="showChapter('eng2',this)">02. to부정사 부사적 용법</button>
+ <button class="nav-btn" onclick="showChapter('eng3',this)">03. to부정사 명사적 용법</button>
+ <button class="nav-btn" onclick="showChapter('eng4',this)">04. 접속사 that</button>
+</aside>
+
+<main class="notebook">
+
+<!-- ================= 수학 1 ================= -->
+
+<section id="math1" class="chapter active">
+<div class="chapter-title">01. 기본도형</div>
+<div class="subtitle">점, 선, 면 그리고 기본적인 도형의 위치 관계</div>
+
+<h2>1. 점 (Point)</h2>
+<p>점은 위치를 나타내는 가장 기본적인 도형이다.</p>
+<p>점은 크기나 넓이가 없으며 위치만 나타낸다.</p>
+
+<div class="diagram">
+<svg width="250" height="75" viewBox="0 0 250 75">
+<circle cx="115" cy="28" r="4" fill="#315d98"/>
+<text x="128" y="33" font-size="15" fill="#315d98">A</text>
+</svg>
+<div class="diagram-caption">점 A</div>
+</div>
+
+<h2>2. 선</h2>
+<p>선은 점들이 이어진 것으로 생각할 수 있다.</p>
+
+<h3>① 직선</h3>
+<p>양쪽으로 끝없이 뻗어 나가는 선이다.</p>
+<h3>② 선분</h3>
+<p>두 끝점 사이의 부분으로 길이가 정해져 있다.</p>
+<h3>③ 반직선</h3>
+<p>한 점에서 시작하여 한쪽 방향으로 끝없이 뻗어 나간다.</p>
+
+<div class="diagram">
+<svg width="100%" viewBox="0 0 400 180">
+<g stroke="#315d98" stroke-width="2" fill="none">
+<path d="M45 30 L355 30 M45 30 l12 -6 M45 30 l12 6 M355 30 l-12 -6 M355 30 l-12 6"/>
+<path d="M100 85 L300 85 M100 77 V93 M300 77 V93"/>
+<path d="M100 140 L355 140 M355 140 l-12 -6 M355 140 l-12 6 M100 132 V148"/>
+</g>
+<g fill="#315d98" font-size="13">
+<text x="200" y="17" text-anchor="middle">직선</text>
+<text x="200" y="73" text-anchor="middle">선분</text>
+<text x="200" y="128" text-anchor="middle">반직선</text>
+<text x="100" y="105" text-anchor="middle">A</text>
+<text x="300" y="105" text-anchor="middle">B</text>
+<text x="100" y="165" text-anchor="middle">A</text>
+</g>
+</svg>
+</div>
+
+<h2>3. 면</h2>
+<p>면은 넓이를 가지는 부분이다.</p>
+<p>평면은 모든 방향으로 끝없이 펼쳐진 평평한 면이다.</p>
+
+<div class="diagram">
+<svg width="250" height="125" viewBox="0 0 250 125">
+<polygon points="45,80 115,25 210,45 140,100" fill="#dceafa" stroke="#4775a8" stroke-width="2"/>
+<text x="125" y="116" font-size="12" text-anchor="middle" fill="#315d98">평면</text>
+</svg>
+</div>
+
+<h2>4. 두 직선의 위치 관계</h2>
+<h3>① 평행</h3>
+<p>같은 평면 위에서 아무리 연장해도 만나지 않는 두 직선이다.</p>
+<h3>② 수직</h3>
+<p>두 직선이 만나 이루는 각이 90°인 관계이다.</p>
+<h3>③ 한 점에서 만나는 관계</h3>
+<p>두 직선이 한 점에서 만나는 관계이다.</p>
+
+<div class="diagram">
+<svg width="100%" viewBox="0 0 400 125">
+<g stroke="#315d98" stroke-width="2">
+<path d="M30 25 H150 M30 65 H150"/>
+<path d="M220 65 H350 M285 10 V110"/>
+<path d="M220 25 L350 105 M220 105 L350 25"/>
+</g>
+<g fill="#315d98" font-size="13">
+<text x="90" y="105" text-anchor="middle">평행</text>
+<text x="285" y="120" text-anchor="middle">수직</text>
+</g>
+</svg>
+</div>
+
+<div class="note">
+<strong>핵심 정리</strong><br>
+점 = 위치<br>
+선 = 길이<br>
+면 = 넓이<br>
+수직 = 90°<br>
+평행 = 만나지 않음
+</div>
+
+<h2>✏️ 연습문제</h2>
+
+<div class="exercise">
+<div class="exercise-title">문제 1. 다음 중 양쪽으로 끝없이 뻗는 것은?</div>
+① 선분　② 직선　③ 반직선　④ 점
+<details><summary>정답 확인</summary><div class="answer">정답: ② 직선<br>직선은 양쪽으로 끝없이 뻗는다.</div></details>
+</div>
+
+<div class="exercise">
+<div class="exercise-title">문제 2. 두 직선이 90°로 만나는 관계는?</div>
+① 평행　② 수직　③ 일치　④ 교차하지 않음
+<details><summary>정답 확인</summary><div class="answer">정답: ② 수직</div></details>
+</div>
+
+<div class="exercise">
+<div class="exercise-title">문제 3. 한 점에서 시작해 한쪽으로만 뻗는 것은?</div>
+① 직선　② 선분　③ 반직선　④ 평면
+<details><summary>정답 확인</summary><div class="answer">정답: ③ 반직선</div></details>
+</div>
+
+<div class="exercise">
+<div class="exercise-title">문제 4. 평행한 두 직선의 특징을 설명하시오.</div>
+<details><summary>정답 확인</summary><div class="answer">같은 평면 위에서 아무리 연장해도 만나지 않는다.</div></details>
+</div>
+
+<div class="exercise">
+<div class="exercise-title">문제 5. 직선, 선분, 반직선의 차이를 설명하시오.</div>
+<details><summary>정답 확인</summary><div class="answer">직선은 양쪽으로 무한히 뻗고, 선분은 두 끝점이 있으며, 반직선은 한쪽 끝점에서 한 방향으로 무한히 뻗는다.</div></details>
+</div>
+</section>
+
+
+<!-- ================= 수학 2 ================= -->
+
+<section id="math2" class="chapter">
+<div class="chapter-title">02. 각의 관계</div>
+<div class="subtitle">교각, 맞꼭지각, 동위각, 엇각을 이해하자.</div>
+
+<h2>1. 각의 종류</h2>
+<ul>
+<li>예각: 0°보다 크고 90°보다 작은 각</li>
+<li>직각: 90°인 각</li>
+<li>둔각: 90°보다 크고 180°보다 작은 각</li>
+<li>평각: 180°인 각</li>
+<li>주각: 360°인 각</li>
+</ul>
+
+<div class="diagram">
+<svg width="100%" viewBox="0 0 400 120">
+<g stroke="#315d98" stroke-width="2.5" fill="none">
+<path d="M35 80 H85 M35 80 L70 40"/>
+<path d="M115 80 H165 M115 80 V30"/>
+<path d="M195 80 H245 M195 80 L175 35"/>
+<path d="M275 80 H325 M275 80 L225 80"/>
+</g>
+<g fill="#315d98" font-size="12" text-anchor="middle">
+<text x="60" y="110">예각</text><text x="140" y="110">직각</text>
+<text x="220" y="110">둔각</text><text x="300" y="110">평각</text>
+</g>
+</svg>
+</div>
+
+<h2>2. 교각</h2>
+<p>두 직선이 한 점에서 만날 때 만들어지는 네 개의 각을 교각이라고 한다.</p>
+
+<h2>3. 맞꼭지각</h2>
+<p>두 직선이 만날 때 서로 마주 보는 두 각이다.</p>
+<div class="formula">맞꼭지각의 크기는 서로 같다.</div>
+
+<div class="diagram">
+<svg width="270" height="180" viewBox="0 0 270 180">
+<path d="M30 145 L240 35 M30 35 L240 145" stroke="#315d98" stroke-width="2.5"/>
+<g fill="#315d98" font-size="15">
+<text x="130" y="68">①</text><text x="151" y="98">②</text>
+<text x="130" y="126">③</text><text x="105" y="98">④</text>
+</g>
+</svg>
+<p>①과 ③은 맞꼭지각 / ②와 ④도 맞꼭지각</p>
+</div>
+
+<h2>4. 보각과 여각</h2>
+<h3>보각</h3>
+<p>두 각의 크기의 합이 180°인 관계이다.</p>
+<div class="formula">보각의 합 = 180°</div>
+<h3>여각</h3>
+<p>두 각의 크기의 합이 90°인 관계이다.</p>
+<div class="formula">여각의 합 = 90°</div>
+
+<div class="example">
+<div class="example-title">예시</div>
+어떤 각이 120°라면 보각은?<br>
+180° - 120° = <strong>60°</strong><br><br>
+어떤 각이 35°라면 여각은?<br>
+90° - 35° = <strong>55°</strong>
+</div>
+
+<h2>5. 평행선과 각</h2>
+<p>두 평행선을 다른 직선이 가로지르면 특별한 각의 관계가 나타난다.</p>
+
+<div class="diagram">
+<svg width="100%" viewBox="0 0 380 220">
+<g stroke="#315d98" stroke-width="2">
+<path d="M25 65 H350 M25 165 H350"/>
+<path d="M95 15 L260 210"/>
+</g>
+<g fill="#c16e52" font-size="13">
+<text x="120" y="55">①</text><text x="150" y="85">②</text>
+<text x="200" y="155">③</text><text x="230" y="180">④</text>
+</g>
+</svg>
+</div>
+
+<h3>① 동위각</h3>
+<p>두 교점에서 같은 위치에 있는 각이다.</p>
+<div class="formula">평행선에서 동위각은 같다.</div>
+
+<h3>② 엇각</h3>
+<p>두 직선의 안쪽에서 가로지르는 직선의 반대편에 있는 각이다.</p>
+<div class="formula">평행선에서 엇각은 같다.</div>
+
+<h3>③ 동측 내각</h3>
+<p>두 직선의 안쪽에서 가로지르는 직선의 같은 쪽에 있는 각이다.</p>
+<div class="formula">동측 내각의 합 = 180°</div>
+
+<div class="warning">
+두 직선이 평행할 때 위 성질들이 성립한다.
+</div>
+
+<h2>✏️ 연습문제</h2>
+
+<div class="exercise">
+<div class="exercise-title">문제 1. 맞꼭지각 중 하나가 70°라면 나머지 맞꼭지각은?</div>
+① 20°　② 70°　③ 90°　④ 110°
+<details><summary>정답 확인</summary><div class="answer">정답: ② 70°</div></details>
+</div>
+
+<div class="exercise">
+<div class="exercise-title">문제 2. 125°의 보각은?</div>
+<details><summary>정답 확인</summary><div class="answer">180° - 125° = 55°</div></details>
+</div>
+
+<div class="exercise">
+<div class="exercise-title">문제 3. 38°의 여각은?</div>
+<details><summary>정답 확인</summary><div class="answer">90° - 38° = 52°</div></details>
+</div>
+
+<div class="exercise">
+<div class="exercise-title">문제 4. 평행선에서 동위각의 크기는 어떤 관계인가?</div>
+<details><summary>정답 확인</summary><div class="answer">서로 같다.</div></details>
+</div>
+
+<div class="exercise">
+<div class="exercise-title">문제 5. 평행선에서 동측 내각 두 개의 합은?</div>
+<details><summary>정답 확인</summary><div class="answer">180°</div></details>
+</div>
+
+<div class="exercise">
+<div class="exercise-title">문제 6. 두 직선이 만나 한 각이 110°이다. 이 각에 이웃하는 각의 크기는?</div>
+<details><summary>정답 확인</summary><div class="answer">180° - 110° = 70°</div></details>
+</div>
+
+<div class="exercise">
+<div class="exercise-title">문제 7. 한 직선 위에서 이웃한 두 각 중 하나가 45°라면 다른 하나는?</div>
+<details><summary>정답 확인</summary><div class="answer">180° - 45° = 135°</div></details>
+</div>
+</section>
+
+
+<!-- ================= 수학 3 ================= -->
+
+<section id="math3" class="chapter">
+<div class="chapter-title">03. 평면도형의 성질</div>
+<div class="subtitle">삼각형, 사각형, 다각형, 원의 특징을 정리하자.</div>
+
+<h2>1. 삼각형</h2>
+<p>세 개의 선분으로 둘러싸인 도형이다.</p>
+
+<div class="diagram">
+<svg width="260" height="150" viewBox="0 0 260 150">
+<path d="M40 125 L130 20 L225 125 Z" fill="#e7f0fb" stroke="#315d98" stroke-width="2.5"/>
+<g fill="#315d98" font-size="13">
+<text x="25" y="135">A</text><text x="130" y="15">B</text><text x="230" y="135">C</text>
+</g>
+</svg>
+</div>
+
+<h3>① 삼각형의 내각의 합</h3>
+<div class="formula">180°</div>
+<p>삼각형의 세 내각을 모두 더하면 항상 180°이다.</p>
+
+<h3>② 삼각형의 외각</h3>
+<p>외각은 그와 이웃하지 않는 두 내각의 합과 같다.</p>
+<div class="formula">외각 = 다른 두 내각의 합</div>
+
+<h3>③ 삼각형의 종류</h3>
+<ul>
+<li>정삼각형: 세 변의 길이가 같다.</li>
+<li>이등변삼각형: 두 변의 길이가 같다.</li>
+<li>직각삼각형: 한 각이 90°이다.</li>
+<li>예각삼각형: 세 각이 모두 예각이다.</li>
+<li>둔각삼각형: 한 각이 둔각이다.</li>
+</ul>
+
+<div class="note">이등변삼각형의 두 밑각의 크기는 같다.</div>
+
+<h2>2. 사각형</h2>
+<p>네 개의 선분으로 둘러싸인 도형이다.</p>
+<div class="formula">사각형의 내각의 합 = 360°</div>
+
+<h3>① 평행사변형</h3>
+<div class="diagram">
+<svg width="230" height="120" viewBox="0 0 230 120">
+<polygon points="55,90 90,25 205,25 170,90" fill="#e7f0fb" stroke="#315d98" stroke-width="2.5"/>
+</svg>
+</div>
+<ul>
+<li>두 쌍의 대변이 각각 평행하다.</li>
+<li>두 쌍의 대변의 길이가 각각 같다.</li>
+<li>마주 보는 두 각의 크기가 같다.</li>
+<li>두 대각선은 서로를 이등분한다.</li>
+</ul>
+
+<h3>② 직사각형</h3>
+<div class="diagram">
+<svg width="230" height="120" viewBox="0 0 230 120">
+<rect x="45" y="20" width="145" height="80" fill="#e7f0fb" stroke="#315d98" stroke-width="2.5"/>
+</svg>
+</div>
+<ul>
+<li>네 각이 모두 직각이다.</li>
+<li>마주 보는 변의 길이가 같다.</li>
+<li>두 대각선의 길이가 같다.</li>
+</ul>
+
+<h3>③ 마름모</h3>
+<div class="diagram">
+<svg width="230" height="130" viewBox="0 0 230 130">
+<polygon points="115,15 195,65 115,115 35,65" fill="#e7f0fb" stroke="#315d98" stroke-width="2.5"/>
+</svg>
+</div>
+<ul>
+<li>네 변의 길이가 모두 같다.</li>
+<li>마주 보는 두 각의 크기가 같다.</li>
+<li>두 대각선은 서로 수직으로 이등분한다.</li>
+</ul>
+
+<h3>④ 정사각형</h3>
+<div class="diagram">
+<svg width="180" height="130" viewBox="0 0 180 130">
+<rect x="45" y="15" width="90" height="90" fill="#e7f0fb" stroke="#315d98" stroke-width="2.5"/>
+</svg>
+</div>
+<ul>
+<li>네 변의 길이가 모두 같다.</li>
+<li>네 각이 모두 직각이다.</li>
+<li>두 대각선의 길이가 같다.</li>
+<li>두 대각선은 서로 수직으로 이등분한다.</li>
+</ul>
+
+<h2>3. 다각형</h2>
+<p>세 개 이상의 선분으로 둘러싸인 평면도형이다.</p>
+<div class="formula">n각형의 내각의 합 = (n - 2) × 180°</div>
+<p>예를 들어 육각형의 내각의 합은?</p>
+<div class="formula">(6 - 2) × 180° = 720°</div>
+
+<h3>정다각형</h3>
+<p>모든 변의 길이가 같고 모든 내각의 크기가 같은 다각형이다.</p>
+
+<div class="note">
+정n각형의 한 내각의 크기<br>
+= (n - 2) × 180° ÷ n
+</div>
+
+<h2>4. 원</h2>
+<p>한 점에서 일정한 거리에 있는 점들의 집합이다.</p>
+
+<div class="diagram">
+<svg width="250" height="190" viewBox="0 0 250 190">
+<circle cx="125" cy="90" r="65" fill="#e7f0fb" stroke="#315d98" stroke-width="2.5"/>
+<path d="M125 90 L190 90" stroke="#d77b79" stroke-width="3"/>
+<path d="M60 90 H190" stroke="#315d98" stroke-width="2"/>
+<circle cx="125" cy="90" r="3" fill="#315d98"/>
+<g fill="#315d98" font-size="13">
+<text x="130" y="84">중심</text><text x="150" y="80">반지름</text>
+<text x="125" y="175" text-anchor="middle">원의 구조</text>
+</g>
+</svg>
+</div>
+
+<ul>
+<li>반지름: 원의 중심에서 원 위의 한 점까지의 거리</li>
+<li>지름: 원의 중심을 지나 원 위의 두 점을 연결한 선분</li>
+<li>원주: 원의 둘레</li>
+<li>원주율: 원주를 지름으로 나눈 값</li>
+</ul>
+
+<div class="formula">지름 = 반지름 × 2</div>
+<div class="formula">원의 둘레 = 지름 × π</div>
+<div class="formula">원의 넓이 = 반지름 × 반지름 × π</div>
+
+<h2>✏️ 연습문제</h2>
+
+<div class="exercise">
+<div class="exercise-title">문제 1. 삼각형의 내각 두 개가 50°, 60°이다. 나머지 각은?</div>
+<details><summary>정답 확인</summary><div class="answer">180° - 50° - 60° = 70°</div></details>
+</div>
+
+<div class="exercise">
+<div class="exercise-title">문제 2. 사각형의 세 내각이 80°, 90°, 100°이다. 나머지 각은?</div>
+<details><summary>정답 확인</summary><div class="answer">360° - 80° - 90° - 100° = 90°</div></details>
+</div>
+
+<div class="exercise">
+<div class="exercise-title">문제 3. 오각형의 내각의 합은?</div>
+<details><summary>정답 확인</summary><div class="answer">(5 - 2) × 180° = 540°</div></details>
+</div>
+
+<div class="exercise">
+<div class="exercise-title">문제 4. 육각형의 내각의 합은?</div>
+<details><summary>정답 확인</summary><div class="answer">(6 - 2) × 180° = 720°</div></details>
+</div>
+
+<div class="exercise">
+<div class="exercise-title">문제 5. 정육각형의 한 내각의 크기는?</div>
+<details><summary>정답 확인</summary><div class="answer">720° ÷ 6 = 120°</div></details>
+</div>
+
+<div class="exercise">
+<div class="exercise-title">문제 6. 정사각형의 특징을 세 가지 쓰시오.</div>
+<details><summary>정답 확인</summary><div class="answer">네 변의 길이가 같고, 네 각이 직각이며, 두 대각선의 길이가 같다.</div></details>
+</div>
+
+<div class="exercise">
+<div class="exercise-title">문제 7. 원의 반지름이 5cm라면 지름은?</div>
+<details><summary>정답 확인</summary><div class="answer">5 × 2 = 10cm</div></details>
+</div>
+
+<div class="exercise">
+<div class="exercise-title">문제 8. 반지름이 3cm인 원의 넓이를 π를 이용하여 나타내시오.</div>
+<details><summary>정답 확인</summary><div class="answer">3 × 3 × π = 9π㎠</div></details>
+</div>
+</section>
+
+
+<!-- ================= 수학 4 ================= -->
+
+<section id="math4" class="chapter">
+<div class="chapter-title">04. 입체도형의 성질</div>
+<div class="subtitle">공간에서 부피와 겉넓이를 가지는 도형을 공부하자.</div>
+
+<h2>1. 입체도형이란?</h2>
+<p>길이, 넓이뿐만 아니라 부피를 가지는 3차원 도형이다.</p>
+<p>대표적으로 각기둥, 각뿔, 원기둥, 원뿔, 구가 있다.</p>
+
+<h2>2. 각기둥</h2>
+<p>서로 평행하고 합동인 두 밑면과 옆면으로 이루어진 입체도형이다.</p>
+
+<div class="diagram">
+<svg width="260" height="180" viewBox="0 0 260 180">
+<path d="M65 60 L130 25 L195 60 L195 135 L130 170 L65 135 Z" fill="#e7f0fb" stroke="#315d98" stroke-width="2"/>
+<path d="M65 60 L130 95 L195 60 M130 95 V170" fill="none" stroke="#315d98" stroke-width="2"/>
+<path d="M65 135 L130 170 L195 135" fill="none" stroke="#315d98" stroke-width="2"/>
+<path d="M65 60 L65 135" stroke="#315d98" stroke-width="2"/>
+</svg>
+<p>각기둥의 예시</p>
+</div>
+
+<ul>
+<li>두 밑면은 서로 평행하고 합동이다.</li>
+<li>옆면은 직사각형인 직각기둥이 기본적인 예이다.</li>
+<li>밑면의 모양에 따라 삼각기둥, 사각기둥 등으로 나눈다.</li>
+</ul>
+
+<h3>각기둥의 구성 요소</h3>
+<ul>
+<li>면: 도형을 둘러싸는 면</li>
+<li>모서리: 면과 면이 만나는 선분</li>
+<li>꼭짓점: 모서리와 모서리가 만나는 점</li>
+</ul>
+
+<h2>3. 각뿔</h2>
+<p>다각형인 밑면 하나와 한 꼭짓점에 모이는 삼각형 옆면들로 이루어진 도형이다.</p>
+
+<div class="diagram">
+<svg width="240" height="180" viewBox="0 0 240 180">
+<path d="M120 20 L40 130 L120 160 L200 130 Z" fill="#e7f0fb" stroke="#315d98" stroke-width="2"/>
+<path d="M120 20 L40 130 M120 20 L120 160 M120 20 L200 130" stroke="#315d98" stroke-width="2"/>
+<path d="M40 130 L200 130" stroke="#315d98" stroke-width="2"/>
+</svg>
+</div>
+
+<ul>
+<li>밑면은 다각형이다.</li>
+<li>옆면은 모두 삼각형이다.</li>
+<li>옆면의 삼각형은 하나의 꼭짓점에 모인다.</li>
+</ul>
+
+<h2>4. 원기둥</h2>
+<p>두 개의 평행하고 합동인 원과 옆면으로 이루어진 입체도형이다.</p>
+
+<div class="diagram">
+<svg width="220" height="180" viewBox="0 0 220 180">
+<ellipse cx="110" cy="35" rx="65" ry="22" fill="#dceafa" stroke="#315d98" stroke-width="2"/>
+<path d="M45 35 V135 M175 35 V135" stroke="#315d98" stroke-width="2"/>
+<path d="M45 135 A65 22 0 0 0 175 135" fill="none" stroke="#315d98" stroke-width="2"/>
+<path d="M45 135 A65 22 0 0 1 175 135" fill="none" stroke="#315d98" stroke-width="2" stroke-dasharray="4 3"/>
+</svg>
+</div>
+
+<ul>
+<li>두 밑면은 원이다.</li>
+<li>두 밑면은 서로 평행하고 합동이다.</li>
+<li>옆면을 펼치면 직사각형이 된다.</li>
+</ul>
+
+<h2>5. 원뿔</h2>
+<p>원 모양의 밑면 하나와 한 꼭짓점으로 모이는 곡면으로 이루어진 도형이다.</p>
+
+<div class="diagram">
+<svg width="220" height="175" viewBox="0 0 220 175">
+<path d="M110 20 L45 140 M110 20 L175 140" stroke="#315d98" stroke-width="2"/>
+<ellipse cx="110" cy="140" rx="65" ry="22" fill="#e7f0fb" stroke="#315d98" stroke-width="2"/>
+</svg>
+</div>
+
+<h2>6. 구</h2>
+<p>공처럼 둥근 입체도형이다.</p>
+<div class="diagram">
+<svg width="170" height="155" viewBox="0 0 170 155">
+<circle cx="85" cy="75" r="58" fill="#dceafa" stroke="#315d98" stroke-width="2"/>
+<ellipse cx="85" cy="75" rx="58" ry="20" fill="none" stroke="#7898bb" stroke-width="1.5" stroke-dasharray="4 3"/>
+<path d="M85 75 L143 75" stroke="#d77b79" stroke-width="2"/>
+</svg>
+</div>
+<ul>
+<li>평면인 밑면이 없다.</li>
+<li>모든 방향으로 둥근 곡면으로 이루어져 있다.</li>
+</ul>
+
+<h2>7. 입체도형의 부피</h2>
+<h3>직육면체</h3>
+<div class="formula">부피 = 가로 × 세로 × 높이</div>
+<h3>정육면체</h3>
+<div class="formula">부피 = 한 모서리의 길이³</div>
+<h3>원기둥</h3>
+<div class="formula">부피 = 밑넓이 × 높이 = πr²h</div>
+<h3>각기둥</h3>
+<div class="formula">부피 = 밑넓이 × 높이</div>
+<h3>각뿔</h3>
+<div class="formula">부피 = 밑넓이 × 높이 ÷ 3</div>
+<h3>원뿔</h3>
+<div class="formula">부피 = πr²h ÷ 3</div>
+<h3>구</h3>
+<div class="formula">부피 = 4πr³ ÷ 3</div>
+
+<h2>8. 오일러의 다면체 정리</h2>
+<p>볼록다면체에서 꼭짓점의 개수, 모서리의 개수, 면의 개수 사이에는 일정한 관계가 있다.</p>
+<div class="formula">꼭짓점 수 - 모서리 수 + 면의 수 = 2</div>
+
+<h2>✏️ 연습문제</h2>
+
+<div class="exercise">
+<div class="exercise-title">문제 1. 각기둥의 밑면은 몇 개인가?</div>
+① 1개　② 2개　③ 3개　④ 4개
+<details><summary>정답 확인</summary><div class="answer">정답: ② 2개</div></details>
+</div>
+
+<div class="exercise">
+<div class="exercise-title">문제 2. 각뿔의 옆면은 어떤 도형인가?</div>
+<details><summary>정답 확인</summary><div class="answer">삼각형</div></details>
+</div>
+
+<div class="exercise">
+<div class="exercise-title">문제 3. 직육면체의 가로 4cm, 세로 3cm, 높이 5cm일 때 부피는?</div>
+<details><summary>정답 확인</summary><div class="answer">4 × 3 × 5 = 60㎤</div></details>
+</div>
+
+<div class="exercise">
+<div class="exercise-title">문제 4. 한 모서리가 3cm인 정육면체의 부피는?</div>
+<details><summary>정답 확인</summary><div class="answer">3 × 3 × 3 = 27㎤</div></details>
+</div>
+
+<div class="exercise">
+<div class="exercise-title">문제 5. 반지름 2cm, 높이 5cm인 원기둥의 부피를 π로 나타내시오.</div>
+<details><summary>정답 확인</summary><div class="answer">π × 2² × 5 = 20π㎤</div></details>
+</div>
+
+<div class="exercise">
+<div class="exercise-title">문제 6. 각뿔의 부피 공식은?</div>
+<details><summary>정답 확인</summary><div class="answer">밑넓이 × 높이 ÷ 3</div></details>
+</div>
+
+<div class="exercise">
+<div class="exercise-title">문제 7. 볼록다면체의 꼭짓점이 8개, 모서리가 12개라면 면은 몇 개인가?</div>
+<details><summary>정답 확인</summary><div class="answer">8 - 12 + 면의 수 = 2<br>면의 수 = 6개</div></details>
+</div>
+</section>
+
+
+<!-- ================= 영어 1 ================= -->
+
+<section id="eng1" class="chapter">
+<div class="chapter-title">01. There + be동사</div>
+<div class="subtitle">어떤 장소에 무엇이 존재하거나 있다는 것을 표현하는 문법</div>
+
+<h2>1. 기본 개념</h2>
+<p><span class="highlight">There + be동사</span>는 '~가 있다', '~가 존재한다'라는 뜻이다.</p>
+
+<div class="formula">There + be동사 + 주어 + 장소</div>
+
+<div class="example">
+<div class="example-title">예문</div>
+There is a book on the desk.<br>
+책상 위에 책 한 권이 있다.<br><br>
+There are two cats in the room.<br>
+방 안에 고양이 두 마리가 있다.
+</div>
+
+<h2>2. There is / There are</h2>
+<p>뒤에 오는 명사의 수에 따라 be동사가 달라진다.</p>
+
+<div class="note">
+<strong>단수 명사 또는 셀 수 없는 명사</strong><br>
+There is + 명사<br><br>
+<strong>복수 명사</strong><br>
+There are + 복수 명사
+</div>
+
+<h3>예시</h3>
+<ul>
+<li>There is a dog. → 개 한 마리가 있다.</li>
+<li>There is some water. → 물이 조금 있다.</li>
+<li>There are three apples. → 사과 세 개가 있다.</li>
+<li>There are many students. → 학생들이 많이 있다.</li>
+</ul>
+
+<h2>3. 부정문</h2>
+<p>be동사 뒤에 not을 붙이면 '~가 없다'라는 뜻이 된다.</p>
+<div class="formula">There is not = There isn't</div>
+<div class="formula">There are not = There aren't</div>
+
+<div class="example">
+There isn't a computer in my room.<br>
+내 방에는 컴퓨터가 없다.<br><br>
+There aren't any books here.<br>
+여기에는 책이 하나도 없다.
+</div>
+
+<h2>4. 의문문</h2>
+<p>There와 be동사의 위치를 바꾼다.</p>
+<div class="formula">Be동사 + there + 주어 ~?</div>
+
+<div class="example">
+Is there a bank near here?<br>
+이 근처에 은행이 있나요?<br><br>
+Are there any students in the classroom?<br>
+교실에 학생들이 있나요?
+</div>
+
+<h3>대답하기</h3>
+<ul>
+<li>Yes, there is. / No, there isn't.</li>
+<li>Yes, there are. / No, there aren't.</li>
+</ul>
+
+<h2>5. 주의할 점</h2>
+<div class="warning">
+There is와 There are를 결정할 때는 There가 아니라 뒤에 나오는 주어의 수를 확인한다.
+</div>
+
+<h2>✏️ 연습문제</h2>
+
+<div class="exercise">
+<div class="exercise-title">문제 1. 빈칸에 알맞은 말을 고르시오.</div>
+There ( is / are ) a pencil on the desk.
+<details><summary>정답 확인</summary><div class="answer">is - a pencil은 단수이다.</div></details>
+</div>
+
+<div class="exercise">
+<div class="exercise-title">문제 2.</div>
+There ( is / are ) five students in the classroom.
+<details><summary>정답 확인</summary><div class="answer">are - five students는 복수이다.</div></details>
+</div>
+
+<div class="exercise">
+<div class="exercise-title">문제 3. 다음 문장을 부정문으로 바꾸시오.</div>
+There is a dog in the garden.
+<details><summary>정답 확인</summary><div class="answer">There isn't a dog in the garden.</div></details>
+</div>
+
+<div class="exercise">
+<div class="exercise-title">문제 4. 다음 문장을 의문문으로 바꾸시오.</div>
+There are two books on the table.
+<details><summary>정답 확인</summary><div class="answer">Are there two books on the table?</div></details>
+</div>
+
+<div class="exercise">
+<div class="exercise-title">문제 5. 다음 문장을 해석하시오.</div>
+There is some milk in the refrigerator.
+<details><summary>정답 확인</summary><div class="answer">냉장고 안에 우유가 조금 있다.</div></details>
+</div>
+
+<div class="exercise">
+<div class="exercise-title">문제 6. 다음 문장을 영어로 바꾸시오.</div>
+우리 학교에는 도서관이 있다.
+<details><summary>정답 확인</summary><div class="answer">There is a library in our school.</div></details>
+</div>
+
+<div class="exercise">
+<div class="exercise-title">문제 7. 다음 중 올바른 문장은?</div>
+① There are a cat.<br>
+② There is three apples.<br>
+③ There are two dogs.<br>
+④ There is many students.
+<details><summary>정답 확인</summary><div class="answer">정답: ③ There are two dogs.</div></details>
+</div>
+</section>
+
+
+<!-- ================= 영어 2 ================= -->
+
+<section id="eng2" class="chapter">
+<div class="chapter-title">02. to부정사의 부사적 용법</div>
+<div class="subtitle">이번 단원에서는 목적을 나타내는 용법만 공부한다.</div>
+
+<h2>1. 기본 개념</h2>
+<p>to + 동사원형의 형태가 문장에서 부사 역할을 할 수 있다.</p>
+<p>이 단원에서는 <span class="highlight">목적</span>의 의미만 다룬다.</p>
+
+<div class="formula">to + 동사원형 = ~하기 위해서</div>
+
+<div class="example">
+<div class="example-title">예문 1</div>
+I study hard to pass the exam.<br>
+나는 시험에 합격하기 위해 열심히 공부한다.
+</div>
+
+<div class="example">
+<div class="example-title">예문 2</div>
+She went to the store to buy milk.<br>
+그녀는 우유를 사기 위해 가게에 갔다.
+</div>
+
+<h2>2. 문장 구조</h2>
+<div class="formula">주어 + 동사 + 목적을 나타내는 to부정사</div>
+
+<p>to 뒤에는 반드시 동사원형이 온다.</p>
+
+<div class="note">
+I exercise to stay healthy.<br>
+나는 건강을 유지하기 위해 운동한다.<br><br>
+to stay = 유지하기 위해서
+</div>
+
+<h2>3. 자주 사용하는 표현</h2>
+<ul>
+<li>to study: 공부하기 위해</li>
+<li>to learn: 배우기 위해</li>
+<li>to buy: 사기 위해</li>
+<li>to see: 보기 위해</li>
+<li>to help: 돕기 위해</li>
+<li>to make: 만들기 위해</li>
+<li>to get: 얻기 위해</li>
+<li>to meet: 만나기 위해</li>
+</ul>
+
+<h2>4. 주의할 점</h2>
+<div class="warning">
+to 뒤에는 동사원형을 사용한다.<br>
+to studying (X)<br>
+to study (O)
+</div>
+
+<h2>✏️ 연습문제</h2>
+
+<div class="exercise">
+<div class="exercise-title">문제 1. 빈칸에 알맞은 것을 고르시오.</div>
+I went to the library ( to study / studying ).
+<details><summary>정답 확인</summary><div class="answer">to study - 공부하기 위해서</div></details>
+</div>
+
+<div class="exercise">
+<div class="exercise-title">문제 2. 다음 문장을 해석하시오.</div>
+He runs every day to stay healthy.
+<details><summary>정답 확인</summary><div class="answer">그는 건강을 유지하기 위해 매일 달린다.</div></details>
+</div>
+
+<div class="exercise">
+<div class="exercise-title">문제 3. 빈칸에 알맞은 말을 쓰시오.</div>
+I saved money ______ buy a new computer.
+<details><summary>정답 확인</summary><div class="answer">to - 새 컴퓨터를 사기 위해서</div></details>
+</div>
+
+<div class="exercise">
+<div class="exercise-title">문제 4. 다음 문장에서 목적을 나타내는 부분을 찾으시오.</div>
+She called me to ask a question.
+<details><summary>정답 확인</summary><div class="answer">to ask a question - 질문하기 위해서</div></details>
+</div>
+
+<div class="exercise">
+<div class="exercise-title">문제 5. 다음 문장을 영어로 바꾸시오.</div>
+나는 영어를 배우기 위해 공부한다.
+<details><summary>정답 확인</summary><div class="answer">I study to learn English.</div></details>
+</div>
+
+<div class="exercise">
+<div class="exercise-title">문제 6. 다음 중 올바른 문장은?</div>
+① I went to buyed food.<br>
+② I went to buying food.<br>
+③ I went to buy food.<br>
+④ I went buy food.
+<details><summary>정답 확인</summary><div class="answer">정답: ③ I went to buy food.</div></details>
+</div>
+
+<div class="exercise">
+<div class="exercise-title">문제 7. 다음 문장을 해석하시오.</div>
+We use computers to do our work.
+<details><summary>정답 확인</summary><div class="answer">우리는 일을 하기 위해 컴퓨터를 사용한다.</div></details>
+</div>
+</section>
+
+
+<!-- ================= 영어 3 ================= -->
+
+<section id="eng3" class="chapter">
+<div class="chapter-title">03. to부정사의 명사적 용법</div>
+<div class="subtitle">to + 동사원형이 명사처럼 쓰이는 세 가지 위치</div>
+
+<h2>1. 기본 개념</h2>
+<p>to부정사가 문장에서 명사처럼 사용되는 것을 명사적 용법이라고 한다.</p>
+
+<div class="formula">to + 동사원형 = ~하는 것</div>
+
+<p>명사적 용법은 다음 세 가지 역할을 할 수 있다.</p>
+<div class="note">
+① 주어<br>
+② 목적어<br>
+③ 보어
+</div>
+
+<h2>2. 주어 역할</h2>
+<p>문장의 주어 자리에 to부정사가 오는 경우이다.</p>
+<div class="formula">To + 동사원형 + 동사 ~</div>
+
+<div class="example">
+<div class="example-title">예문</div>
+To learn English is important.<br>
+영어를 배우는 것은 중요하다.<br><br>
+To exercise every day is good.<br>
+매일 운동하는 것은 좋다.
+</div>
+
+<h2>3. 목적어 역할</h2>
+<p>동사 뒤에서 목적어 역할을 한다.</p>
+
+<div class="formula">주어 + 동사 + to + 동사원형</div>
+
+<div class="example">
+<div class="example-title">예문</div>
+I want to sleep.<br>
+나는 자고 싶다.<br><br>
+She likes to read books.<br>
+그녀는 책 읽는 것을 좋아한다.<br><br>
+He decided to study.<br>
+그는 공부하기로 결정했다.
+</div>
+
+<h3>자주 쓰이는 동사</h3>
+<ul>
+<li>want: 원하다</li>
+<li>hope: 바라다</li>
+<li>decide: 결정하다</li>
+<li>plan: 계획하다</li>
+<li>need: 필요로 하다</li>
+</ul>
+
+<h2>4. 보어 역할</h2>
+<p>주어의 상태나 내용을 설명하는 주격 보어 역할을 한다.</p>
+
+<div class="formula">주어 + be동사 + to + 동사원형</div>
+
+<div class="example">
+<div class="example-title">예문</div>
+My dream is to become a doctor.<br>
+나의 꿈은 의사가 되는 것이다.<br><br>
+Her hobby is to dance.<br>
+그녀의 취미는 춤추는 것이다.
+</div>
+
+<h2>5. 세 가지 역할 비교</h2>
+
+<div class="note">
+<strong>주어</strong><br>
+To read books is fun.<br>
+책을 읽는 것은 재미있다.<br><br>
+<strong>목적어</strong><br>
+I want to read books.<br>
+나는 책을 읽고 싶다.<br><br>
+<strong>보어</strong><br>
+My hobby is to read books.<br>
+내 취미는 책을 읽는 것이다.
+</div>
+
+<div class="warning">
+명사적 용법의 핵심은 문장 속에서 '~하는 것'이라는 의미로 쓰이며, 주어·목적어·보어 중 어떤 역할을 하는지 구별하는 것이다.
+</div>
+
+<h2>✏️ 연습문제</h2>
+
+<div class="exercise">
+<div class="exercise-title">문제 1. 다음 문장에서 to부정사의 역할은?</div>
+To swim is fun.
+<details><summary>정답 확인</summary><div class="answer">주어 - 수영하는 것은 재미있다.</div></details>
+</div>
+
+<div class="exercise">
+<div class="exercise-title">문제 2. 다음 문장에서 to부정사의 역할은?</div>
+I want to eat pizza.
+<details><summary>정답 확인</summary><div class="answer">목적어 - 나는 피자를 먹고 싶다.</div></details>
+</div>
+
+<div class="exercise">
+<div class="exercise-title">문제 3. 다음 문장에서 to부정사의 역할은?</div>
+My dream is to travel the world.
+<details><summary>정답 확인</summary><div class="answer">보어 - 나의 꿈은 세계를 여행하는 것이다.</div></details>
+</div>
+
+<div class="exercise">
+<div class="exercise-title">문제 4. 빈칸에 알맞은 것을 고르시오.</div>
+I decided ( to study / studying ) English.
+<details><summary>정답 확인</summary><div class="answer">to study</div></details>
+</div>
+
+<div class="exercise">
+<div class="exercise-title">문제 5. 다음 문장을 해석하시오.</div>
+To help others is important.
+<details><summary>정답 확인</summary><div class="answer">다른 사람들을 돕는 것은 중요하다.</div></details>
+</div>
+
+<div class="exercise">
+<div class="exercise-title">문제 6. 다음 문장을 해석하시오.</div>
+Her plan is to visit Japan.
+<details><summary>정답 확인</summary><div class="answer">그녀의 계획은 일본을 방문하는 것이다.</div></details>
+</div>
+
+<div class="exercise">
+<div class="exercise-title">문제 7. 다음 문장에서 to부정사의 역할을 순서대로 쓰시오.</div>
+① To exercise is healthy.<br>
+② I hope to win.<br>
+③ My goal is to succeed.
+<details><summary>정답 확인</summary><div class="answer">① 주어 ② 목적어 ③ 보어</div></details>
+</div>
+
+<div class="exercise">
+<div class="exercise-title">문제 8. 다음 문장을 영어로 바꾸시오.</div>
+나의 꿈은 선생님이 되는 것이다.
+<details><summary>정답 확인</summary><div class="answer">My dream is to become a teacher.</div></details>
+</div>
+</section>
+
+
+<!-- ================= 영어 4 ================= -->
+
+<section id="eng4" class="chapter">
+<div class="chapter-title">04. 접속사 that</div>
+<div class="subtitle">that을 사용하여 두 문장을 연결하는 방법</div>
+
+<h2>1. 기본 개념</h2>
+<p>접속사 that은 뒤에 완전한 문장을 연결하여 '~라는 것', '~라고'라는 의미를 만든다.</p>
+
+<div class="formula">주어 + 동사 + that + 완전한 문장</div>
+
+<div class="example">
+<div class="example-title">예문</div>
+I think that he is kind.<br>
+나는 그가 친절하다고 생각한다.<br><br>
+She knows that I am busy.<br>
+그녀는 내가 바쁘다는 것을 안다.
+</div>
+
+<h2>2. that의 역할</h2>
+<p>that은 앞의 동사와 뒤의 문장을 연결하는 접속사이다.</p>
+
+<div class="diagram">
+<svg width="100%" viewBox="0 0 390 105">
+<rect x="5" y="15" width="110" height="65" rx="7" fill="#e7f0fb" stroke="#7299c6"/>
+<rect x="140" y="15" width="105" height="65" rx="7" fill="#fff0e8" stroke="#d68c83"/>
+<rect x="270" y="15" width="115" height="65" rx="7" fill="#e7f0fb" stroke="#7299c6"/>
+<g font-size="13" text-anchor="middle" fill="#315d98">
+<text x="60" y="42">I think</text><text x="60" y="60">나는 생각한다</text>
+<text x="192" y="42">that</text><text x="192" y="60">접속사</text>
+<text x="327" y="42">he is kind</text><text x="327" y="60">그는 친절하다</text>
+</g>
+</svg>
+</div>
+
+<h2>3. 두 문장을 연결하기</h2>
+<p>예를 들어 다음 두 문장이 있다고 생각해 보자.</p>
+
+<div class="note">
+He is honest.<br>
+그는 정직하다.<br><br>
+I think.<br>
+나는 생각한다.
+</div>
+
+<p>두 문장을 that으로 연결하면 다음과 같다.</p>
+
+<div class="formula">I think that he is honest.</div>
+<p>나는 그가 정직하다고 생각한다.</p>
+
+<h2>4. 자주 쓰이는 동사</h2>
+<ul>
+<li>think: 생각하다</li>
+<li>know: 알다</li>
+<li>believe: 믿다</li>
+<li>hope: 바라다</li>
+<li>say: 말하다</li>
+<li>hear: 듣다</li>
+<li>understand: 이해하다</li>
+</ul>
+
+<h2>5. that 뒤에는 완전한 문장</h2>
+<p>접속사 that 뒤에는 주어와 동사가 갖춰진 문장이 온다.</p>
+
+<div class="example">
+<strong>올바른 예문</strong><br>
+I know that she likes music.<br>
+→ she(주어) + likes(동사) + music(목적어)
+</div>
+
+<div class="warning">
+접속사 that과 관계대명사 that은 서로 다른 문법이다. 여기서는 접속사 that만 공부한다.
+</div>
+
+<h2>6. that 생략</h2>
+<p>목적어 역할을 하는 명사절을 이끄는 접속사 that은 일반적으로 생략할 수 있다.</p>
+
+<div class="example">
+I think that he is smart.<br>
+= I think he is smart.<br><br>
+나는 그가 똑똑하다고 생각한다.
+</div>
+
+<h2>✏️ 연습문제</h2>
+
+<div class="exercise">
+<div class="exercise-title">문제 1. 빈칸에 알맞은 말을 고르시오.</div>
+I think ( that / what ) she is smart.
+<details><summary>정답 확인</summary><div class="answer">that</div></details>
+</div>
+
+<div class="exercise">
+<div class="exercise-title">문제 2. 다음 문장을 해석하시오.</div>
+I know that he is a student.
+<details><summary>정답 확인</summary><div class="answer">나는 그가 학생이라는 것을 안다.</div></details>
+</div>
+
+<div class="exercise">
+<div class="exercise-title">문제 3. 두 문장을 that으로 연결하시오.</div>
+She is happy.<br>
+I believe.
+<details><summary>정답 확인</summary><div class="answer">I believe that she is happy.</div></details>
+</div>
+
+<div class="exercise">
+<div class="exercise-title">문제 4. 다음 문장을 해석하시오.</div>
+He said that he liked soccer.
+<details><summary>정답 확인</summary><div class="answer">그는 자신이 축구를 좋아한다고 말했다.</div></details>
+</div>
+
+<div class="exercise">
+<div class="exercise-title">문제 5. 다음 중 접속사 that의 뒤에 완전한 문장이 오는 것은?</div>
+① I know that she is kind.<br>
+② I know that kind.<br>
+③ I know that happy.<br>
+④ I know that beautiful.
+<details><summary>정답 확인</summary><div class="answer">정답: ① she is kind. 주어와 동사가 모두 있다.</div></details>
+</div>
+
+<div class="exercise">
+<div class="exercise-title">문제 6. 다음 문장에서 that이 생략 가능한지 판단하시오.</div>
+I think that he is right.
+<details><summary>정답 확인</summary><div class="answer">생략 가능: I think he is right.</div></details>
+</div>
+
+<div class="exercise">
+<div class="exercise-title">문제 7. 다음 문장을 영어로 바꾸시오.</div>
+나는 그녀가 친절하다고 생각한다.
+<details><summary>정답 확인</summary><div class="answer">I think that she is kind.</div></details>
+</div>
+
+<div class="exercise">
+<div class="exercise-title">문제 8. 다음 문장을 영어로 바꾸시오.</div>
+나는 그가 영어를 좋아한다는 것을 안다.
+<details><summary>정답 확인</summary><div class="answer">I know that he likes English.</div></details>
+</div>
+</section>
+
+</main>
+</div>
+
+<footer>
+MY STUDY NOTE · MATHEMATICS & ENGLISH
+</footer>
+
+<script>
+function showChapter(id, button){
+    // 모든 단원 숨기기
+    document.querySelectorAll('.chapter').forEach(chapter=>{
+        chapter.classList.remove('active');
+    });
+
+    // 선택한 단원 표시
+    const selected = document.getElementById(id);
+    if(!selected) return;
+    selected.classList.add('active');
+
+    // 메뉴 버튼 상태 변경
+    document.querySelectorAll('.nav-btn').forEach(btn=>{
+        btn.classList.remove('active');
+    });
+
+    if(button){
+        button.classList.add('active');
+    }
+
+    // 단원 변경 시 페이지 상단으로 이동
+    window.scrollTo({top:0, behavior:'smooth'});
+}
+</script>
+
+</body>
+</html>
